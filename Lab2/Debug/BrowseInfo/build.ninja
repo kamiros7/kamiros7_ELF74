@@ -1,0 +1,71 @@
+##IAR Ninja build file
+
+
+#Rules
+rule COMPILER_XCL
+  command = "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\common\bin\XclFileGenerator.exe" $xclcommand -f "$rspfile_name"
+  description = IAR_NEW_TOOL+++COMPILER_XCL+++$in+++"C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\common\bin\XclFileGenerator.exe" $flags
+  rspfile = $rspfile_name
+  rspfile_content = $flags
+
+rule INDEXER
+  command = "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\common\bin\SourceIndexer.exe" $flags
+  depfile = $out.dep
+  description = IAR_NEW_TOOL+++INDEXER+++$out+++"C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\common\bin\SourceIndexer.exe" $flags
+
+rule MAKEBROWSE
+  command = "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\common\bin\makeBrowseData.exe" $flags
+  description = IAR_NEW_TOOL+++MAKEBROWSE+++$out+++"C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\common\bin\makeBrowseData.exe" $flags
+
+rule PDBLINK
+  command = "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\common\bin\PbdLink.exe" $flags
+  description = IAR_NEW_TOOL+++PDBLINK+++$out+++"C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\common\bin\PbdLink.exe" $flags
+
+
+
+#Build steps
+build C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\Source\blinky.xcl : COMPILER_XCL 
+  xclcommand = -source_file "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\src\blinky.c" -xcl_file "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\Source\blinky.xcl" -macro_file "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\Source\blinky.tmp" -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\arm\bin\iccarm.exe"
+  flags = "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\src\blinky.c" -D ewarm -D PART_TM4C1294NCPDT -D TARGET_IS_TM4C129_RA1 --diag_suppress Pa050 -o "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\ewarm\Obj\Source" --debug --endian=little --cpu=Cortex-M4 -e --fpu=VFPv4_sp --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\arm\inc\c\DLib_Config_Normal.h" -I "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\..\\" -I "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\..\..\TivaWare_C_Series-2.2.0.295\\" -Ohz --use_c++_inline --predef_macros "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\Source\blinky.tmp"
+  rspfile_name = C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\Source\blinky.xcl.rsp
+
+build C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\Source\startup_ewarm.xcl : COMPILER_XCL 
+  xclcommand = -source_file "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\src\startup_ewarm.c" -xcl_file "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\Source\startup_ewarm.xcl" -macro_file "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\Source\startup_ewarm.tmp" -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\arm\bin\iccarm.exe"
+  flags = "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\src\startup_ewarm.c" -D ewarm -D PART_TM4C1294NCPDT -D TARGET_IS_TM4C129_RA1 --diag_suppress Pa050 -o "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\ewarm\Obj\Source" --debug --endian=little --cpu=Cortex-M4 -e --fpu=VFPv4_sp --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\arm\inc\c\DLib_Config_Normal.h" -I "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\..\\" -I "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\..\..\TivaWare_C_Series-2.2.0.295\\" -Ohz --use_c++_inline --predef_macros "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\Source\startup_ewarm.tmp"
+  rspfile_name = C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\Source\startup_ewarm.xcl.rsp
+
+build C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\buttons.xcl : COMPILER_XCL 
+  xclcommand = -source_file "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\TivaWare_C_Series-2.2.0.295\drivers\buttons.c" -xcl_file "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\buttons.xcl" -macro_file "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\buttons.tmp" -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\arm\bin\iccarm.exe"
+  flags = "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\TivaWare_C_Series-2.2.0.295\drivers\buttons.c" -D ewarm -D PART_TM4C1294NCPDT -D TARGET_IS_TM4C129_RA1 --diag_suppress Pa050 -o "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\ewarm\Obj\\" --debug --endian=little --cpu=Cortex-M4 -e --fpu=VFPv4_sp --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\arm\inc\c\DLib_Config_Normal.h" -I "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\..\\" -I "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\..\..\TivaWare_C_Series-2.2.0.295\\" -Ohz --use_c++_inline --predef_macros "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\buttons.tmp"
+  rspfile_name = C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\buttons.xcl.rsp
+
+build C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\pinout.xcl : COMPILER_XCL 
+  xclcommand = -source_file "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\TivaWare_C_Series-2.2.0.295\drivers\pinout.c" -xcl_file "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\pinout.xcl" -macro_file "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\pinout.tmp" -icc_path "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\arm\bin\iccarm.exe"
+  flags = "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\TivaWare_C_Series-2.2.0.295\drivers\pinout.c" -D ewarm -D PART_TM4C1294NCPDT -D TARGET_IS_TM4C129_RA1 --diag_suppress Pa050 -o "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\ewarm\Obj\\" --debug --endian=little --cpu=Cortex-M4 -e --fpu=VFPv4_sp --dlib_config "C$:\Program$ Files\IAR$ Systems\Embedded$ Workbench$ 9.1\arm\inc\c\DLib_Config_Normal.h" -I "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\..\\" -I "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\..\..\TivaWare_C_Series-2.2.0.295\\" -Ohz --use_c++_inline --predef_macros "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\pinout.tmp"
+  rspfile_name = C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\pinout.xcl.rsp
+
+build C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\Source\blinky.pbi : INDEXER C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\Source\blinky.xcl |  $
+C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\src\blinky.c
+  flags = "-out=C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\Source\blinky.pbi" -f "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\Source\blinky.xcl"
+
+build C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\Source\startup_ewarm.pbi : INDEXER C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\Source\startup_ewarm.xcl |  $
+C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\src\startup_ewarm.c
+  flags = "-out=C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\Source\startup_ewarm.pbi" -f "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\Source\startup_ewarm.xcl"
+
+build C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\buttons.pbi : INDEXER C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\buttons.xcl |  $
+C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\TivaWare_C_Series-2.2.0.295\drivers\buttons.c
+  flags = "-out=C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\buttons.pbi" -f "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\buttons.xcl"
+
+build C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\pinout.pbi : INDEXER C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\pinout.xcl |  $
+C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\TivaWare_C_Series-2.2.0.295\drivers\pinout.c
+  flags = "-out=C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\pinout.pbi" -f "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\pinout.xcl"
+
+build C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\Lab2.pbw : MAKEBROWSE C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\Lab2.pbd
+  flags = "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\Lab2.pbd" -output "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\Lab2.pbw"
+
+build C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\Lab2.pbd : PDBLINK C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\Source\blinky.pbi |  $
+C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\Source\startup_ewarm.pbi $
+C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\buttons.pbi $
+C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\pinout.pbi
+  flags = -M "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\Lab2.pbd" "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\Source\blinky.pbi" "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\Source\startup_ewarm.pbi" "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\buttons.pbi" "C$:\Users\kamir\Desktop\Camilo\Faculdade\2022-2\Sistemas$ Embarcados\kamiros7_ELF74\Lab2\Debug\BrowseInfo\pinout.pbi"
+

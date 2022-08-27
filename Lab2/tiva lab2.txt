@@ -1,0 +1,16 @@
+
+
+6. Como o compilador pode mudar a ordem de comandos e dados que são escritos
+uma variável se torna volatile para o compilador não otimizar, sendo assim
+podendo ter comportamentos imprevistos. No caso, a contagem não ser feito corre
+tamente, pulando alguns "tempos" da contagem.
+
+7.
+
+
+LED D1 -> PN1
+SW1 -> Pj0 (lembrar que é lógica invertida, apertada ela vai para 0)
+e tem que usar pullup *ou pulldown) da própria placa
+
+
+ver projeto gpio_jtag
