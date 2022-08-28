@@ -34,6 +34,10 @@
 #include "drivers/buttons.h"
 #include "drivers/pinout.h"
 #include "stdio.h"
+//new libs for systick
+#include "driverlib/systick.h"
+//new libs for timer
+#include "driverlib/timer.h"
 
 //*****************************************************************************
 //
@@ -73,7 +77,14 @@ __error__(char *pcFilename, uint32_t ui32Line)
 // The value is true when the INT_GPIOJ interrupt was processed. (Maybe replace to bool type)
 //
 //*****************************************************************************
-volatile uint32_t g_ui32GPIOj;
+volatile uint32_t flagInterruptPortJ;
+
+//*****************************************************************************
+//
+// The value is used for get the curret value of timer counter.
+//
+//*****************************************************************************
+volatile uint32_t currentTimerValueCounter, flagTimerValueCounter;
 
 //*****************************************************************************
 //
@@ -85,8 +96,8 @@ IntGPIOj(void)
 {
   //O que estou pensando, é de colocar a verificação do botao pressionado aqui dentro, 
   //se foi pressionado, ai sim essa flag vai para um (podemos renomear o nome dessa var tbm)
-  g_ui32GPIOj = 1; //true
-  
+  currentTimerValueCounter = TimerValueGet(TIMER0_BASE, TIMER_A);
+  flagInterruptPortJ = 1; //true 
 }
 
 //*******************************************************************
@@ -97,22 +108,92 @@ IntGPIOj(void)
 void initInterrupt()
 {
     //
-    // Configure the device pins.
+    //Enables the specified GPIO interrupts
     //
-    PinoutSet(false, false);  //não sei o que essa função faz (vem do arquivo pinout.c/pinout/h na pasta drivers)
-    IntMasterEnable(); //Enable the Master key of interrupt.
+    GPIOIntEnable(GPIO_PORTJ_BASE, GPIO_INT_PIN_0);
+  
+    //
+    //Set the interrupt type in the specfied pin (high_level/low_level), (falling_edge, rising_edge...)
+    //
+    GPIOIntTypeSet(GPIO_PORTJ_BASE, GPIO_PIN_0 , GPIO_LOW_LEVEL);
+  
     IntEnable(INT_GPIOJ);
     IntPrioritySet(INT_GPIOJ, 0x00);
+
+    IntMasterEnable(); //Enable the Master key of interrupt.
+}
+
+//*******************************************************************
+//
+//Function that will called for the interrupt with Timer
+//
+//*******************************************************************
+void timerInterrupt()
+{
+  TimerIntClear(TIMER0_BASE, (TIMER_TIMA_TIMEOUT|TIMER_TIMB_TIMEOUT));
+  flagTimerValueCounter = 1;
+}
+
+//*******************************************************************
+//
+//Function for init the Timer API
+//
+//*******************************************************************
+void initTimer(void) 
+{
+  //
+  // Enable the Timer0 peripheral
+  //
+  SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER0);
+  //
+  // Wait for the Timer0 module to be ready.
+  //
+  while(!SysCtlPeripheralReady(SYSCTL_PERIPH_TIMER0))
+  {
+  }
+  //
+  // Configure TimerA as a full-width one-shot timer.
+  //
+  TimerConfigure(TIMER0_BASE, TIMER_CFG_ONE_SHOT);
+  
+  //
+  // Set the count time for the the one-shot timer (TimerA).
+  //
+  uint32_t counter = 120000000*3;
+  TimerLoadSet(TIMER0_BASE, TIMER_A, counter);
+  
+  //
+  //Configure interrupt handler for timer
+  //
+  TimerIntRegister(TIMER0_BASE, TIMER_BOTH, &timerInterrupt);
+  
+  TimerIntEnable(TIMER0_BASE, (TIMER_TIMA_TIMEOUT|TIMER_TIMB_TIMEOUT));
+  
 }
 
 //*****************************************************************************
 //
-// Main 'C' Language entry point.  Toggle an LED using TivaWare.
+// Function for convert counter.
+//
+//*****************************************************************************
+uint32_t convertToMiliSeconds(uint32_t counter)
+{
+  uint32_t time;
+  time = ((float)1/120000) * counter;
+  return time;
+}
+  
+
+//*****************************************************************************
+//
+// Main 'C' Language entry point.
 //
 //*****************************************************************************
 int
 main(void)
 {
+    currentTimerValueCounter = 0;
+    flagInterruptPortJ = 0;
     uint32_t ui32SysClock;
 
     //
@@ -138,65 +219,56 @@ main(void)
     //
     GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, USER_LED2);
     
-    
     //
     // Initialize the button driver.
     //
     ButtonsInit();
-    
+    //
+    // Initialize the interrupts for GPIO PORT J.
+    //
     initInterrupt();
+    //
+    // Initialize timer.
+    //  
+    initTimer();  
     
     //
-    // Loop Forever
+    // Delay for 0.5sec
     //
+    SysCtlDelay(ui32SysClock/6);
+
+    //
+    // Turn on the LED (start the game)
+    //
+    GPIOPinWrite(GPIO_PORTN_BASE, (USER_LED2), USER_LED2);
+    
+    //
+    // Enable the timers.
+    //
+    TimerEnable(TIMER0_BASE, TIMER_BOTH);
+
     while(1)
-    {
-        //
-        // Turn on the LED
-        //
-        GPIOPinWrite(GPIO_PORTN_BASE, (USER_LED2), USER_LED2);
-
-        //
-        // Delay for a bit
-        //
-        SysCtlDelay(ui32SysClock/6);
-
-        //
-        // Turn on the LED
-        //
-        GPIOPinWrite(GPIO_PORTN_BASE, (USER_LED2), 0);
- 
-        //
-        // Delay for a bit
-        //
-        SysCtlDelay(ui32SysClock/6);
-        
-        //int32_t buttonPinValue = GPIOPinRead(GPIO_PORTJ_AHB_BASE, USER_BUTTON_SW1);
-        //if(buttonPinValue == 0) {
-        //  printf("apertou o botao bobao\n");
-        //}
-        
-        uint8_t ui8Buttons;
-        uint8_t ui8ButtonsChanged;
-
-        //
-        // Grab the current, debounced state of the buttons.
-        //
-        ui8Buttons = ButtonsPoll(&ui8ButtonsChanged, 0);
-
-        //
-        // If the USR_SW1 button has been pressed, and was previously not pressed,
-        // start the process of changing the behavior of the JTAG pins.
-        //
-        if(BUTTON_PRESSED(USR_SW1, ui8Buttons, ui8ButtonsChanged))
-        {
-          printf("ALOU\n");
+    {           
+        if(flagInterruptPortJ == 1) {
+          flagInterruptPortJ = 0;
+          //
+          // Turn off the LED
+          //
+          GPIOPinWrite(GPIO_PORTN_BASE, (USER_LED2), 0);
+          uint32_t currentTimerValueSec = convertToMiliSeconds(currentTimerValueCounter);
+          printf("contagem: %d e tempo: %d ms\n", currentTimerValueCounter, currentTimerValueSec);
+          break;
         }
         
-        if(g_ui32GPIOj == 1) {
-          g_ui32GPIOj = 0;
-          printf("oi interrupção\n");
+        if(flagTimerValueCounter == 1){
+          flagTimerValueCounter = 0;
+          //
+          // Turn off the LED
+          //
+          GPIOPinWrite(GPIO_PORTN_BASE, (USER_LED2), 0);
+          printf("Acabou o tempo\n");
+          break;
         }
-        
     }
+    printf("FIM DE JOGO\n");
 }
