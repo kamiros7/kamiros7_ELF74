@@ -272,3 +272,4 @@ main(void)
     }
     printf("FIM DE JOGO\n");
 }
+
