@@ -1091,15 +1091,9 @@
         </file>
     </group>
     <file>
-        <name>$PROJ_DIR$\..\..\TivaWare_C_Series-2.2.0.295\drivers\buttons.c</name>
+        <name>$PROJ_DIR$\..\..\TivaWare_C_Series-2.2.0.295\examples\boards\ek-tm4c1294xl\drivers\buttons.c</name>
     </file>
     <file>
-        <name>$PROJ_DIR$\..\..\TivaWare_C_Series-2.2.0.295\drivers\buttons.h</name>
-    </file>
-    <file>
-        <name>$PROJ_DIR$\..\..\TivaWare_C_Series-2.2.0.295\drivers\pinout.c</name>
-    </file>
-    <file>
-        <name>$PROJ_DIR$\..\..\TivaWare_C_Series-2.2.0.295\drivers\pinout.h</name>
+        <name>$PROJ_DIR$\..\..\TivaWare_C_Series-2.2.0.295\examples\boards\ek-tm4c1294xl\drivers\pinout.c</name>
     </file>
 </project>
