@@ -77,8 +77,8 @@ extern "C" uint16_t EightBitHistogram(uint16_t width, uint16_t height, const uin
 
 void print_histogram(uint16_t *histogram){
   for(uint16_t i = 0; i < 256; i++){
-    uint16_t a = histogram[i];
-    std::cout << "[ " << i << " ]: " << a << std::endl;
+    uint8_t a = (uint8_t)histogram[i];
+    std::cout << "[ " << i << " ]: " << (uint16_t)a << std::endl;
   }
 }
 
