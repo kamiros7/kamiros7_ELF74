@@ -1,0 +1,1244 @@
+###############################################################################
+#
+# IAR ELF Linker V9.30.1.335/W64 for ARM                  29/Aug/2022  13:31:50
+# Copyright 2007-2022 IAR Systems AB.
+#
+#    Output file  =
+#        C:\Users\joaov\OneDrive\햞ea de Trabalho\Estudos\2022.2\Sistemas
+#        Embarcados\kamiros7_ELF74\Lab1\Debug\Exe\Lab1.out
+#    Map file     =
+#        C:\Users\joaov\OneDrive\햞ea de Trabalho\Estudos\2022.2\Sistemas
+#        Embarcados\kamiros7_ELF74\Lab1\Debug\List\Lab1.map
+#    Command line =
+#        -f "C:\Users\joaov\OneDrive\햞ea de Trabalho\Estudos\2022.2\Sistemas
+#        Embarcados\kamiros7_ELF74\Lab1\Debug\Exe\Lab1.out.rsp"
+#        ("C:\Users\joaov\OneDrive\햞ea de Trabalho\Estudos\2022.2\Sistemas
+#        Embarcados\kamiros7_ELF74\Lab1\Debug\Obj\main.o" --no_out_extension -o
+#        "C:\Users\joaov\OneDrive\햞ea de Trabalho\Estudos\2022.2\Sistemas
+#        Embarcados\kamiros7_ELF74\Lab1\Debug\Exe\Lab1.out" --redirect
+#        _Printf=_PrintfFullNoMb --redirect _Scanf=_ScanfFullNoMb --map
+#        "C:\Users\joaov\OneDrive\햞ea de Trabalho\Estudos\2022.2\Sistemas
+#        Embarcados\kamiros7_ELF74\Lab1\Debug\List\Lab1.map" --config
+#        "C:\Program Files\IAR Systems\Embedded Workbench
+#        9.1\arm/config/linker/TexasInstruments/TM4C1294NC.icf" --semihosting
+#        --entry __iar_program_start --vfe --text_out locale --cpu=Cortex-M4
+#        --fpu=VFPv4_sp)
+#
+###############################################################################
+
+*******************************************************************************
+*** RUNTIME MODEL ATTRIBUTES
+***
+
+CppFlavor                     = *
+__CPP_Exceptions              = Disabled
+__CPP_Language                = C++14
+__CPP_Library                 = DLib
+__CPP_Runtime                 = 1
+__Heap_Handler                = Basic
+__SystemLibrary               = DLib
+__dlib_dynamic_initialization = normal
+__dlib_version                = 6
+
+
+*******************************************************************************
+*** HEAP SELECTION
+***
+
+The basic heap was selected because --advanced_heap
+was not specified and the application did not appear to
+be primarily optimized for speed.
+
+
+*******************************************************************************
+*** PLACEMENT SUMMARY
+***
+
+"A0":  place at address 0x0 { ro section .intvec };
+"P1":  place in [from 0x0 to 0xf'ffff] { ro };
+define block CSTACK with size = 32K, alignment = 8 { };
+define block HEAP with size = 64K, alignment = 8 { };
+"P2":  place in [from 0x2000'0000 to 0x2003'ffff] {
+          rw, block CSTACK, block HEAP };
+initialize by copy { rw };
+
+  Section                Kind         Address      Size  Object
+  -------                ----         -------      ----  ------
+"A0":                                              0x40
+  .intvec                ro code          0x0      0x40  vector_table_M.o [6]
+                                       - 0x40      0x40
+
+"P1":                                            0x5c80
+  .text                  ro code         0x40     0xe8e  xprintffull_nomb.o [2]
+  .text                  ro code        0xece      0x2a  copy_init3.o [6]
+  .text                  ro code        0xef8      0x16  strchr.o [6]
+  .text                  ro code        0xf0e      0x22  iostream_cin.o [3]
+  .text                  ro code        0xf30      0x40  xfail_s.o [2]
+  .text                  ro code        0xf70      0x36  strlen.o [6]
+  .text                  ro code        0xfa6       0xa  xsprout.o [2]
+  .text                  ro code        0xfb0      0x58  memchr.o [6]
+  .text                  ro code       0x1008      0x76  ABImemcpy_unaligned.o [6]
+  .text                  ro code       0x107e       0x6  iostream_cin.o [3]
+  .text                  ro code       0x1084      0x70  frexp.o [5]
+  .text                  ro code       0x10f4      0x34  DblCmpLe.o [5]
+  .text                  ro code       0x1128      0x34  DblCmpGe.o [5]
+  .text                  ro code       0x115c     0x13a  ldexp.o [5]
+  .text                  ro code       0x1296       0x6  iostream_cin.o [3]
+  .text                  ro code       0x129c      0x36  DblToS32.o [5]
+  .rodata                const         0x12d2       0x2  main.o [1]
+  .text                  ro code       0x12d4      0x22  S32ToDbl.o [5]
+  .text                  ro code       0x12f6       0x2  iostream_cin.o [3]
+  .text                  ro code       0x12f8     0x24e  DblAddSub.o [5]
+  .text                  ro code       0x1546       0x2  iostream_cin.o [3]
+  .text                  ro code       0x1548     0x246  DblDiv.o [5]
+  .text                  ro code       0x178e       0x2  vectortrap_M.o [6]
+  .text                  ro code       0x1790      0x22  DblToU32.o [5]
+  .rodata                const         0x17b2       0x1  main.o [1]
+  .rodata                zero          0x17b3       0x1  main.o [1]
+  .text                  ro code       0x17b4      0x1c  U32ToDbl.o [5]
+  .text                  ro code       0x17d0     0x1aa  DblMul.o [5]
+  .rodata                zero          0x197a       0x1  main.o [1]
+  .rodata                const         0x197b       0x1  unwind_debug.o [7]
+  .text                  ro code       0x197c     0x230  I64DivMod.o [6]
+  .text                  ro code       0x1bac       0x6  abort.o [2]
+  .text                  ro code       0x1bb4       0x2  I64DivZer.o [6]
+  .text                  ro code       0x1bb8      0x14  exit.o [7]
+  .text                  ro code       0x1bcc      0x7c  iarttio.o [7]
+  .text                  ro code       0x1c48       0x8  XShttio.o [2]
+  .text                  ro code       0x1c50     0x4ac  main.o [1]
+  .text                  ro code       0x20fc       0x4  main.o [1]
+  .text                  ro code       0x2100       0x6  main.o [1]
+  .text                  ro code       0x2108     0x498  main.o [1]
+  .text                  ro code       0x25a0      0x30  main.o [1]
+  .text                  ro code       0x25d0       0xa  main.o [1]
+  .text                  ro code       0x25dc      0x20  main.o [1]
+  .text                  ro code       0x25fc      0x12  main.o [1]
+  .text                  ro code       0x260e       0x8  main.o [1]
+  .text                  ro code       0x2616      0x14  main.o [1]
+  .text                  ro code       0x262a       0xe  main.o [1]
+  .text                  ro code       0x2638       0xc  main.o [1]
+  .text                  ro code       0x2644       0xa  main.o [1]
+  .text                  ro code       0x264e      0x14  main.o [1]
+  .text                  ro code       0x2662      0x1e  main.o [1]
+  .text                  ro code       0x2680       0xa  main.o [1]
+  .text                  ro code       0x268a      0x2a  main.o [1]
+  .text                  ro code       0x26b4      0x5a  main.o [1]
+  .text                  ro code       0x270e       0xc  main.o [1]
+  .text                  ro code       0x271a      0x12  main.o [1]
+  .text                  ro code       0x272c       0xa  main.o [1]
+  .text                  ro code       0x2738      0x18  main.o [1]
+  .text                  ro code       0x2750       0xa  cxxabi.o [4]
+  .text                  ro code       0x275c      0x18  main.o [1]
+  .text                  ro code       0x2774      0x40  main.o [1]
+  .text                  ro code       0x27b4      0x3a  main.o [1]
+  .text                  ro code       0x27ee      0x34  main.o [1]
+  .text                  ro code       0x2822       0xc  main.o [1]
+  .text                  ro code       0x282e       0xa  main.o [1]
+  .text                  ro code       0x2838       0x8  main.o [1]
+  .text                  ro code       0x2840      0x7a  main.o [1]
+  .text                  ro code       0x28ba      0x3a  main.o [1]
+  .text                  ro code       0x28f4       0xa  main.o [1]
+  .text                  ro code       0x28fe      0x7a  main.o [1]
+  .text                  ro code       0x2978      0x2a  main.o [1]
+  .text                  ro code       0x29a2      0x28  main.o [1]
+  .text                  ro code       0x29ca       0xc  main.o [1]
+  .text                  ro code       0x29d6       0x8  main.o [1]
+  .text                  ro code       0x29e0      0xa0  cppinit.o [2]
+  .text                  ro code       0x2a80       0x8  main.o [1]
+  .text                  ro code       0x2a88      0x24  main.o [1]
+  .text                  ro code       0x2aac      0x12  main.o [1]
+  .text                  ro code       0x2abe       0x6  main.o [1]
+  .text                  ro code       0x2ac4      0x24  main.o [1]
+  .text                  ro code       0x2ae8       0x8  main.o [1]
+  .text                  ro code       0x2af0      0x12  main.o [1]
+  .text                  ro code       0x2b04      0x18  main.o [1]
+  .text                  ro code       0x2b1c       0xa  main.o [1]
+  .text                  ro code       0x2b26       0x8  main.o [1]
+  .text                  ro code       0x2b2e       0x8  main.o [1]
+  .text                  ro code       0x2b36       0x8  main.o [1]
+  .text                  ro code       0x2b40      0x10  main.o [1]
+  .text                  ro code       0x2b50       0xe  main.o [1]
+  .text                  ro code       0x2b5e       0x8  main.o [1]
+  .text                  ro code       0x2b66       0x8  main.o [1]
+  .text                  ro code       0x2b6e      0x18  main.o [1]
+  .text                  ro code       0x2b86      0xd6  main.o [1]
+  .text                  ro code       0x2c5c       0x6  main.o [1]
+  .text                  ro code       0x2c62      0x10  main.o [1]
+  .text                  ro code       0x2c72      0x12  main.o [1]
+  .text                  ro code       0x2c84      0x28  main.o [1]
+  .text                  ro code       0x2cac       0xc  main.o [1]
+  .text                  ro code       0x2cb8      0x18  main.o [1]
+  .text                  ro code       0x2cd0       0x6  main.o [1]
+  .text                  ro code       0x2cd6       0x4  main.o [1]
+  .text                  ro code       0x2cda       0xe  main.o [1]
+  .text                  ro code       0x2ce8       0x2  main.o [1]
+  .text                  ro code       0x2cea      0x1c  main.o [1]
+  .text                  ro code       0x2d06       0x2  main.o [1]
+  .text                  ro code       0x2d08       0x8  main.o [1]
+  .text                  ro code       0x2d10       0x2  main.o [1]
+  .text                  ro code       0x2d12       0xc  main.o [1]
+  .text                  ro code       0x2d1e       0x2  main.o [1]
+  .text                  ro code       0x2d20       0x8  main.o [1]
+  .text                  ro code       0x2d28       0x8  main.o [1]
+  .text                  ro code       0x2d30       0x8  main.o [1]
+  .text                  ro code       0x2d38       0x2  main.o [1]
+  .text                  ro code       0x2d3a      0x18  main.o [1]
+  .text                  ro code       0x2d54      0x66  ABImemset.o [6]
+  .text                  ro code       0x2dbc      0x44  main.o [1]
+  .text                  ro code       0x2e00       0x4  main.o [1]
+  .text                  ro code       0x2e04       0x2  main.o [1]
+  .text                  ro code       0x2e06       0x8  main.o [1]
+  .text                  ro code       0x2e0e       0xa  main.o [1]
+  .text                  ro code       0x2e18       0x2  main.o [1]
+  .text                  ro code       0x2e1a       0x8  main.o [1]
+  .text                  ro code       0x2e22       0x2  main.o [1]
+  .text                  ro code       0x2e24       0x8  main.o [1]
+  .text                  ro code       0x2e2c       0xc  main.o [1]
+  .text                  ro code       0x2e38       0x2  main.o [1]
+  .text                  ro code       0x2e3a      0x18  main.o [1]
+  .text                  ro code       0x2e52      0x34  main.o [1]
+  .text                  ro code       0x2e86      0x1a  main.o [1]
+  .text                  ro code       0x2ea0       0x2  main.o [1]
+  .text                  ro code       0x2ea2       0xa  delop_0.o [4]
+  .text                  ro code       0x2eac       0x6  main.o [1]
+  .text                  ro code       0x2eb2      0x12  main.o [1]
+  .text                  ro code       0x2ec4      0x20  main.o [1]
+  .text                  ro code       0x2ee4     0x13c  heap0.o [2]
+  .text                  ro code       0x3020       0x4  heaptramp0.o [2]
+  .text                  ro code       0x3024      0x24  newop_0.o [4]
+  .text                  ro code       0x3048       0x4  main.o [1]
+  .text                  ro code       0x304c      0x2c  xgetmemchunk.o [2]
+  .text                  ro code       0x3078       0x4  nomemory.o [4]
+  .text                  ro code       0x307c     0x2ac  main.o [1]
+  .text                  ro code       0x3328      0x22  strcspn.o [2]
+  .text                  ro code       0x334a       0x6  main.o [1]
+  .text                  ro code       0x3350      0x96  main.o [1]
+  .text                  ro code       0x33e6       0x4  main.o [1]
+  .text                  ro code       0x33ea      0x2e  main.o [1]
+  .text                  ro code       0x3418      0x2e  main.o [1]
+  .text                  ro code       0x3446       0x8  main.o [1]
+  .text                  ro code       0x344e       0xe  main.o [1]
+  .text                  ro code       0x345c       0x2  main.o [1]
+  .text                  ro code       0x345e      0x2e  main.o [1]
+  .text                  ro code       0x348c       0x2  main.o [1]
+  .text                  ro code       0x3490      0x78  ABImemmove_unaligned.o [6]
+  .text                  ro code       0x3508      0x32  main.o [1]
+  .text                  ro code       0x353a      0x18  main.o [1]
+  .text                  ro code       0x3552       0xe  main.o [1]
+  .text                  ro code       0x3560     0x274  strto32.o [5]
+  .text                  ro code       0x37d4      0x48  frexpf.o [5]
+  .text                  ro code       0x381c      0xc4  ldexpf.o [5]
+  .text                  ro code       0x38e0     0x120  iar_Stopfx.o [2]
+  .text                  ro code       0x3a00     0x1a8  iar_Stoflt.o [2]
+  .text                  ro code       0x3ba8     0x20c  iar_Stoxflt.o [2]
+  .text                  ro code       0x3db4     0x234  main.o [1]
+  .text                  ro code       0x3fe8     0x1dc  main.o [1]
+  .text                  ro code       0x41c4       0x4  main.o [1]
+  .text                  ro code       0x41c8      0x20  DblCmpEq.o [5]
+  .text                  ro code       0x41e8      0xfe  main.o [1]
+  .text                  ro code       0x42e8      0x40  sprintf.o [2]
+  .text                  ro code       0x4328     0x1b2  main.o [1]
+  .text                  ro code       0x44da       0x8  main.o [1]
+  .text                  ro code       0x44e2      0x72  main.o [1]
+  .text                  ro code       0x4554       0x4  main.o [1]
+  .text                  ro code       0x4558       0x8  main.o [1]
+  .text                  ro code       0x4560       0x6  main.o [1]
+  .text                  ro code       0x4566       0x4  main.o [1]
+  .text                  ro code       0x456a       0xa  main.o [1]
+  .text                  ro code       0x4574      0x28  main.o [1]
+  .text                  ro code       0x459c       0xe  main.o [1]
+  .text                  ro code       0x45aa       0x8  main.o [1]
+  .text                  ro code       0x45b2      0x14  main.o [1]
+  .text                  ro code       0x45c6       0x4  main.o [1]
+  .text                  ro code       0x45ca      0x54  main.o [1]
+  .text                  ro code       0x461e       0x4  main.o [1]
+  .text                  ro code       0x4622      0x18  main.o [1]
+  .text                  ro code       0x463a       0x8  main.o [1]
+  .text                  ro code       0x4642      0x28  main.o [1]
+  .text                  ro code       0x466a       0xa  main.o [1]
+  .text                  ro code       0x4674      0x14  main.o [1]
+  .text                  ro code       0x4688     0x100  ios.o [3]
+  .text                  ro code       0x4788       0x8  main.o [1]
+  .text                  ro code       0x4790      0x54  main.o [1]
+  .text                  ro code       0x47e4       0x8  main.o [1]
+  .text                  ro code       0x47ec       0x4  delop4_0.o [4]
+  .text                  ro code       0x47f0      0x48  main.o [1]
+  .text                  ro code       0x4838      0x46  main.o [1]
+  .text                  ro code       0x4880     0x11c  main.o [1]
+  .text                  ro code       0x499c      0xa2  main.o [1]
+  .text                  ro code       0x4a3e       0x6  main.o [1]
+  .text                  ro code       0x4a44      0xcc  main.o [1]
+  .text                  ro code       0x4b10      0x84  main.o [1]
+  .text                  ro code       0x4b94      0xba  main.o [1]
+  .text                  ro code       0x4c50      0x20  main.o [1]
+  .text                  ro code       0x4c70       0x8  main.o [1]
+  .text                  ro code       0x4c78      0x28  main.o [1]
+  .text                  ro code       0x4ca0       0x4  main.o [1]
+  .text                  ro code       0x4ca4      0x1c  main.o [1]
+  .text                  ro code       0x4cc0       0x4  main.o [1]
+  .text                  ro code       0x4cc4      0x20  main.o [1]
+  .text                  ro code       0x4ce4      0x14  main.o [1]
+  .text                  ro code       0x4cf8      0x2e  main.o [1]
+  .text                  ro code       0x4d26       0xe  main.o [1]
+  .text                  ro code       0x4d34      0x48  FltToDbl.o [5]
+  .text                  ro code       0x4d7c      0x28  main.o [1]
+  .text                  ro code       0x4da4      0x18  main.o [1]
+  .text                  ro code       0x4dbc       0x8  main.o [1]
+  .text                  ro code       0x4dc4      0xe4  main.o [1]
+  .text                  ro code       0x4ea8      0x18  main.o [1]
+  .text                  ro code       0x4ec0       0x8  main.o [1]
+  .text                  ro code       0x4ec8       0x8  main.o [1]
+  .text                  ro code       0x4ed0      0x48  main.o [1]
+  .text                  ro code       0x4f18      0x20  main.o [1]
+  .text                  ro code       0x4f38      0x42  main.o [1]
+  .text                  ro code       0x4f7a       0x8  main.o [1]
+  .text                  ro code       0x4f82      0x46  main.o [1]
+  .text                  ro code       0x4fc8       0xc  main.o [1]
+  .text                  ro code       0x4fd4       0x6  main.o [1]
+  .text                  ro code       0x4fda      0x14  isspace.o [2]
+  .text                  ro code       0x4fee      0x10  main.o [1]
+  .text                  ro code       0x5000       0xc  main.o [1]
+  .text                  ro code       0x500c      0xa0  main.o [1]
+  .text                  ro code       0x50ac      0x94  iostream_cin.o [3]
+  .text                  ro code       0x5140      0x5c  iostream_cin.o [3]
+  .text                  ro code       0x519c      0x90  main.o [1]
+  .text                  ro code       0x522c      0x90  iostream_cout.o [3]
+  .text                  ro code       0x52bc      0x7c  main.o [1]
+  .text                  ro code       0x5338      0x22  main.o [1]
+  .text                  ro code       0x535a      0x6c  main.o [1]
+  .text                  ro code       0x53c6      0x76  main.o [1]
+  .rodata                const         0x543c      0x6c  main.o [1]
+  .text                  ro code       0x54a8      0x60  main.o [1]
+  .text                  ro code       0x5508      0x5e  iostream_cin.o [3]
+  .text                  ro code       0x5566      0x52  main.o [1]
+  .text                  ro code       0x55b8      0x32  main.o [1]
+  .text                  ro code       0x55ea      0x4a  iostream_cin.o [3]
+  .text                  ro code       0x5634      0x38  getchar.o [2]
+  .text                  ro code       0x566c      0x30  read.o [7]
+  .rodata                const         0x569c      0x44  iostream_cin.o [3]
+  .rodata                const         0x56e0      0x44  iostream_cin.o [3]
+  .rodata                const         0x5724      0x3c  main.o [1]
+  .rodata                const         0x5760      0x3c  main.o [1]
+  .text                  ro code       0x579c      0x38  iostream_cin.o [3]
+  .text                  ro code       0x57d4      0x20  putchar.o [2]
+  .text                  ro code       0x57f4      0x10  write.o [7]
+  .text                  ro code       0x5804      0x1e  dwrite.o [7]
+  .text                  ro code       0x5822      0x20  iarwstd.o [7]
+  .text                  ro code       0x5842      0x22  iarwrite.o [7]
+  .text                  ro code       0x5864      0x38  zero_init3.o [6]
+  .text                  ro code       0x589c      0x34  iostream_cin.o [3]
+  .rodata                const         0x58d0      0x30  main.o [1]
+  .rodata                const         0x5900      0x30  main.o [1]
+  .text                  ro code       0x5930      0x2e  main.o [1]
+  .text                  ro code       0x595e      0x12  main.o [1]
+  .text                  ro code       0x5970      0x2c  iostream_cin.o [3]
+  .rodata                const         0x599c      0x28  iostream_cin.o [3]
+  .rodata                const         0x59c4      0x28  iostream_cout.o [3]
+  .text                  ro code       0x59ec      0x28  data_init.o [6]
+  .rodata                const         0x5a14      0x24  main.o [1]
+  .rodata                const         0x5a38      0x24  main.o [1]
+  .text                  ro code       0x5a5c      0x24  main.o [1]
+  .text                  ro code       0x5a80      0x18  main.o [1]
+  .text                  ro code       0x5a98      0x22  fpinit_M.o [5]
+  .iar.init_table        const         0x5abc      0x28  - Linker created -
+  .rodata                const         0x5ae4      0x20  main.o [1]
+  .text                  ro code       0x5b04      0x20  cmain_call_ctors.o [6]
+  .text                  ro code       0x5b24      0x1e  cmain.o [6]
+  .text                  ro code       0x5b42       0x4  low_level_init.o [2]
+  .text                  ro code       0x5b46       0x4  exit.o [2]
+  .text                  ro code       0x5b4c       0xe  cexit.o [6]
+  .text                  ro code       0x5b5c      0x1c  cstartup_M.o [6]
+  .text                  ro code       0x5b78      0x18  main.o [1]
+  .text                  ro code       0x5b90      0x18  main.o [1]
+  .rodata                const         0x5ba8      0x14  main.o [1]
+  .text                  ro code       0x5bbc      0x14  iostream_cout.o [3]
+  Initializer bytes      const         0x5bd0      0x14  <for P2-1>
+  .rodata                const         0x5be4      0x10  main.o [1]
+  .rodata                const         0x5bf4      0x10  main.o [1]
+  .rodata                const         0x5c04      0x10  main.o [1]
+  .rodata                const         0x5c14      0x10  ios.o [3]
+  .rodata                const         0x5c24      0x10  iostream_cin.o [3]
+  .text                  ro code       0x5c34      0x10  iostream_cin.o [3]
+  .text                  ro code       0x5c44       0xe  main.o [1]
+  .text                  ro code       0x5c52       0x8  main.o [1]
+  .text                  ro code       0x5c5a       0xe  iostream_cout.o [3]
+  .rodata                const         0x5c68       0xc  main.o [1]
+  .rodata                const         0x5c74       0xc  main.o [1]
+  SHT$$PREINIT_ARRAY                   0x5c80       0x8  <Block>
+    .preinit_array       const         0x5c80       0x4  iostream_cin.o [3]
+    .preinit_array       const         0x5c84       0x4  iostream_cout.o [3]
+  SHT$$INIT_ARRAY                      0x5c88       0x4  <Block>
+    .init_array          const         0x5c88       0x4  ios.o [3]
+  __iar_tls$$INIT_ARRAY                0x5c8c       0x0  <Block>
+  .text                  ro code       0x5c8c       0xa  main.o [1]
+  .rodata                const         0x5c98       0x8  main.o [1]
+  .rodata                const         0x5ca0       0x8  main.o [1]
+  .rodata                const         0x5ca8       0x4  main.o [1]
+  .rodata                const         0x5cac       0x4  main.o [1]
+  .rodata                const         0x5cb0       0x4  main.o [1]
+  .text                  ro code       0x5cb4       0x4  main.o [1]
+  .text                  ro code       0x5cb8       0x4  main.o [1]
+  .text                  ro code       0x5cbc       0x4  iostream_cin.o [3]
+  .text                  ro code       0x5cc0       0x0  cstart_call_dtors.o [6]
+  .rodata                const         0x5cc0       0x0  zero_init3.o [6]
+  .rodata                const         0x5cc0       0x0  copy_init3.o [6]
+                                     - 0x5cc0    0x5c80
+
+"P2", part 1 of 3:                                 0x14
+  P2-1                            0x2000'0000      0x14  <Init block>
+    .data                inited   0x2000'0000       0x8  main.o [1]
+    .data                inited   0x2000'0008       0x4  getchar.o [2]
+    .data                inited   0x2000'000c       0x8  XShttio.o [2]
+                                - 0x2000'0014      0x14
+
+"P2", part 2 of 3:                                0x168
+  .bss                   zero     0x2000'0014      0x70  iostream_cin.o [3]
+  .bss                   zero     0x2000'0084      0x70  iostream_cout.o [3]
+  .bss                   zero     0x2000'00f4      0x34  ios.o [3]
+  .bss                   zero     0x2000'0128      0x14  main.o [1]
+  .bss                   zero     0x2000'0140      0x10  ios.o [3]
+  .bss                   zero     0x2000'0150       0x8  heap0.o [2]
+  .bss                   zero     0x2000'0158       0x4  main.o [1]
+  .bss                   zero     0x2000'015c       0x4  main.o [1]
+  .bss                   zero     0x2000'0160       0x4  main.o [1]
+  .bss                   zero     0x2000'0164       0x4  cppinit.o [2]
+  .bss                   zero     0x2000'0168       0x4  cppinit.o [2]
+  .bss                   zero     0x2000'016c       0x4  new.o [4]
+  .bss                   zero     0x2000'0170       0x4  xgetmemchunk.o [2]
+  .bss                   zero     0x2000'0174       0x4  xfail_s.o [2]
+  .bss                   zero     0x2000'0178       0x1  main.o [1]
+  .bss                   zero     0x2000'0179       0x1  main.o [1]
+  .bss                   zero     0x2000'017a       0x1  main.o [1]
+  .bss                   zero     0x2000'017b       0x1  main.o [1]
+                                - 0x2000'017c     0x168
+
+"P2", part 3 of 3:                             0x1'81b4
+  .iar.dynexit                    0x2000'017c     0x1b0  <Block>
+    .iar.dynexit         uninit   0x2000'017c       0xc  cppinit.o [2]
+    .iar.dynexit         uninit   0x2000'0188     0x1a4  <Block tail>
+  CSTACK                          0x2000'0330    0x8000  <Block>
+    CSTACK               uninit   0x2000'0330    0x8000  <Block tail>
+  HEAP                            0x2000'8330  0x1'0000  <Block>
+    HEAP                 uninit   0x2000'8330  0x1'0000  <Block tail>
+                                - 0x2001'8330  0x1'81b4
+
+Unused ranges:
+
+         From           To      Size
+         ----           --      ----
+       0x5cc0     0xf'ffff  0xf'a340
+  0x2001'8330  0x2003'ffff  0x2'7cd0
+
+
+*******************************************************************************
+*** INIT TABLE
+***
+
+          Address      Size
+          -------      ----
+Zero (__iar_zero_init3)
+    1 destination range, total size 0x168:
+          0x2000'0014  0x168
+
+Copy (__iar_copy_init3)
+    1 source range, total size 0x14:
+               0x5bd0   0x14
+    1 destination range, total size 0x14:
+          0x2000'0000   0x14
+
+Extra (__iar_cstart_call_ctors)
+
+
+
+*******************************************************************************
+*** MODULE SUMMARY
+***
+
+    Module                  ro code  ro data  rw data
+    ------                  -------  -------  -------
+command line/config:
+    -------------------------------------------------
+    Total:
+
+C:\Users\joaov\OneDrive\햞ea de Trabalho\Estudos\2022.2\Sistemas Embarcados\kamiros7_ELF74\Lab1\Debug\Obj: [1]
+    main.o                   10'924      559       46
+    -------------------------------------------------
+    Total:                   10'924      559       46
+
+dl7M_tln.a: [2]
+    XShttio.o                     8        8        8
+    abort.o                       6
+    cppinit.o                   160                20
+    exit.o                        4
+    getchar.o                    56        4        4
+    heap0.o                     316                 8
+    heaptramp0.o                  4
+    iar_Stoflt.o                424
+    iar_Stopfx.o                288
+    iar_Stoxflt.o               524
+    isspace.o                    20
+    low_level_init.o              4
+    putchar.o                    32
+    sprintf.o                    64
+    strcspn.o                    34
+    xfail_s.o                    64                 4
+    xgetmemchunk.o               44                 4
+    xprintffull_nomb.o        3'726
+    xsprout.o                    10
+    -------------------------------------------------
+    Total:                    5'788       12       48
+
+dlpp7M_tls_nc.a: [3]
+    ios.o                       256       20       68
+    iostream_cin.o              630      196      112
+    iostream_cout.o             178       44      112
+    -------------------------------------------------
+    Total:                    1'064      260      292
+
+dlpprt7M_tl_nc.a: [4]
+    cxxabi.o                     10
+    delop4_0.o                    4
+    delop_0.o                    10
+    new.o                                           4
+    newop_0.o                    36
+    nomemory.o                    4
+    -------------------------------------------------
+    Total:                       64                 4
+
+m7M_tls.a: [5]
+    DblAddSub.o                 590
+    DblCmpEq.o                   32
+    DblCmpGe.o                   52
+    DblCmpLe.o                   52
+    DblDiv.o                    582
+    DblMul.o                    426
+    DblToS32.o                   54
+    DblToU32.o                   34
+    FltToDbl.o                   72
+    S32ToDbl.o                   34
+    U32ToDbl.o                   28
+    fpinit_M.o                   34
+    frexp.o                     112
+    frexpf.o                     72
+    ldexp.o                     314
+    ldexpf.o                    196
+    strto32.o                   628
+    -------------------------------------------------
+    Total:                    3'312
+
+rt7M_tl.a: [6]
+    ABImemcpy_unaligned.o       118
+    ABImemmove_unaligned.o      120
+    ABImemset.o                 102
+    I64DivMod.o                 560
+    I64DivZer.o                   2
+    cexit.o                      14
+    cmain.o                      30
+    cmain_call_ctors.o           32
+    copy_init3.o                 42
+    cstart_call_dtors.o
+    cstartup_M.o                 28
+    data_init.o                  40
+    memchr.o                     88
+    strchr.o                     22
+    strlen.o                     54
+    vector_table_M.o             64
+    vectortrap_M.o                2
+    zero_init3.o                 56
+    -------------------------------------------------
+    Total:                    1'374
+
+shb_l.a: [7]
+    dwrite.o                     30
+    exit.o                       20
+    iarttio.o                   124
+    iarwrite.o                   34
+    iarwstd.o                    32
+    read.o                       48
+    unwind_debug.o                         1
+    write.o                      16
+    -------------------------------------------------
+    Total:                      304        1
+
+    Gaps                         36        4        4
+    Linker created                        40   98'724
+-----------------------------------------------------
+    Grand Total:             22'866      876   99'118
+
+
+*******************************************************************************
+*** ENTRY LIST
+***
+
+Entry                       Address   Size  Type      Object
+-----                       -------   ----  ----      ------
+.iar.dynexit$$Base      0x2000'017c          --   Gb  - Linker created -
+.iar.dynexit$$Limit     0x2000'032c          --   Gb  - Linker created -
+.iar.init_table$$Base        0x5abc          --   Gb  - Linker created -
+.iar.init_table$$Limit       0x5ae4          --   Gb  - Linker created -
+?main                        0x5b25         Code  Gb  cmain.o [6]
+Aldata                  0x2000'0150    0x8  Data  Lc  heap0.o [2]
+BusFault_Handler             0x178f         Code  Wk  vectortrap_M.o [6]
+CSTACK$$Base            0x2000'0330          --   Gb  - Linker created -
+CSTACK$$Limit           0x2000'8330          --   Gb  - Linker created -
+DebugMon_Handler             0x178f         Code  Wk  vectortrap_M.o [6]
+Dtentox                      0x3561  0x154  Code  Lc  strto32.o [5]
+DtorRecArray            0x2000'017c    0xc  Data  Lc  cppinit.o [2]
+HEAP$$Base              0x2000'8330          --   Gb  - Linker created -
+HEAP$$Limit             0x2001'8330          --   Gb  - Linker created -
+HardFault_Handler            0x178f         Code  Wk  vectortrap_M.o [6]
+Initialization guard variable for std::ctype<char> const & std::use_facet<std::ctype<char>>()::_MyFacet
+                        0x2000'0179    0x1  Data  Wk  main.o [1]
+Initialization guard variable for std::num_get<char, std::istreambuf_iterator<char, std::char_traits<char>>> const & std::use_facet<std::num_get<char, std::istreambuf_iterator<char, std::char_traits<char>>>>()::_MyFacet
+                        0x2000'017a    0x1  Data  Wk  main.o [1]
+Initialization guard variable for std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char>>> const & std::use_facet<std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char>>>>()::_MyFacet
+                        0x2000'0178    0x1  Data  Wk  main.o [1]
+Initialization guard variable for std::numpunct<char> const & std::use_facet<std::numpunct<char>>()::_MyFacet
+                        0x2000'017b    0x1  Data  Wk  main.o [1]
+MemManage_Handler            0x178f         Code  Wk  vectortrap_M.o [6]
+NMI_Handler                  0x178f         Code  Wk  vectortrap_M.o [6]
+PendSV_Handler               0x178f         Code  Wk  vectortrap_M.o [6]
+Region$$Table$$Base          0x5abc          --   Gb  - Linker created -
+Region$$Table$$Limit         0x5ae4          --   Gb  - Linker created -
+SHT$$INIT_ARRAY$$Base        0x5c88          --   Gb  - Linker created -
+SHT$$INIT_ARRAY$$Limit       0x5c8c          --   Gb  - Linker created -
+SHT$$PREINIT_ARRAY$$Base
+                             0x5c80          --   Gb  - Linker created -
+SHT$$PREINIT_ARRAY$$Limit
+                             0x5c88          --   Gb  - Linker created -
+SVC_Handler                  0x178f         Code  Wk  vectortrap_M.o [6]
+SysTick_Handler              0x178f         Code  Wk  vectortrap_M.o [6]
+UsageFault_Handler           0x178f         Code  Wk  vectortrap_M.o [6]
+Virtual function table for std::_Wrap_facet<std::ctype<char>>
+                             0x5bf4   0x10  Data  Wk  main.o [1]
+Virtual function table for std::_Wrap_facet<std::num_get<char, std::istreambuf_iterator<char, std::char_traits<char>>>>
+                             0x5760   0x3c  Data  Wk  main.o [1]
+Virtual function table for std::_Wrap_facet<std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char>>>>
+                             0x5900   0x30  Data  Wk  main.o [1]
+Virtual function table for std::_Wrap_facet<std::numpunct<char>>
+                             0x5a38   0x24  Data  Wk  main.o [1]
+Virtual function table for std::__nobasic_filebuf<char, std::char_traits<char>>
+                             0x56e0   0x44  Data  Wk  iostream_cin.o [3]
+Virtual function table for std::ctype<char>
+                             0x5be4   0x10  Data  Wk  main.o [1]
+Virtual function table for std::ios
+                             0x5c24   0x10  Data  Wk  iostream_cin.o [3]
+Virtual function table for std::ios_base
+                             0x5c14   0x10  Data  Wk  ios.o [3]
+Virtual function table for std::istream
+                             0x599c   0x28  Data  Wk  iostream_cin.o [3]
+Virtual function table for std::num_get<char, std::istreambuf_iterator<char, std::char_traits<char>>>
+                             0x5724   0x3c  Data  Wk  main.o [1]
+Virtual function table for std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char>>>
+                             0x58d0   0x30  Data  Wk  main.o [1]
+Virtual function table for std::numpunct<char>
+                             0x5a14   0x24  Data  Wk  main.o [1]
+Virtual function table for std::ostream
+                             0x59c4   0x28  Data  Wk  iostream_cout.o [3]
+Virtual function table for std::streambuf
+                             0x569c   0x44  Data  Wk  iostream_cin.o [3]
+[local to ios_cpp]::std::stdopens
+                        0x2000'00f4    0xc  Data  Lc  ios.o [3]
+[local to ios_cpp]::std::stdstr
+                        0x2000'0100   0x28  Data  Lc  ios.o [3]
+[local to iostream_cin_cpp]::std::fin
+                        0x2000'0044   0x40  Data  Lc  iostream_cin.o [3]
+[local to iostream_cout_cpp]::std::__iarcoutguard
+                        0x2000'00b0    0x1  Data  Lc  iostream_cout.o [3]
+[local to iostream_cout_cpp]::std::fout
+                        0x2000'00b4   0x40  Data  Lc  iostream_cout.o [3]
+_LC                            0x41    0x6  Code  Lc  xprintffull_nomb.o [2]
+_LitobFullNoMb                0xcd1  0x114  Code  Lc  xprintffull_nomb.o [2]
+_PrintfFullNoMb                0x47  0xc76  Code  Gb  xprintffull_nomb.o [2]
+_PutcharsFullNoMb             0xe3d   0x2e  Code  Lc  xprintffull_nomb.o [2]
+_SProut                       0xfa7    0xa  Code  Gb  xsprout.o [2]
+_UngetChar              0x2000'0008    0x4  Data  Lc  getchar.o [2]
+__aeabi_atexit               0x2751    0xa  Code  Gb  cxxabi.o [4]
+__aeabi_cdcmpeq              0x41c9         Code  Gb  DblCmpEq.o [5]
+__aeabi_cdcmple              0x10f5         Code  Gb  DblCmpLe.o [5]
+__aeabi_cdrcmple             0x1129         Code  Gb  DblCmpGe.o [5]
+__aeabi_d2iz                 0x129d         Code  Gb  DblToS32.o [5]
+__aeabi_d2uiz                0x1791         Code  Gb  DblToU32.o [5]
+__aeabi_ddiv                 0x1549         Code  Gb  DblDiv.o [5]
+__aeabi_dmul                 0x17d1         Code  Gb  DblMul.o [5]
+__aeabi_dsub                 0x1465         Code  Gb  DblAddSub.o [5]
+__aeabi_f2d                  0x4d35         Code  Gb  FltToDbl.o [5]
+__aeabi_i2d                  0x12d5         Code  Gb  S32ToDbl.o [5]
+__aeabi_ldiv0                0x1bb5         Code  Gb  I64DivZer.o [6]
+__aeabi_memset               0x2d55         Code  Gb  ABImemset.o [6]
+__aeabi_ui2d                 0x17b5         Code  Gb  U32ToDbl.o [5]
+__aeabi_uldivmod             0x197d         Code  Gb  I64DivMod.o [6]
+__basic_free                 0x2f91   0x16  Code  Gb  heap0.o [2]
+__basic_free_intern          0x2fa7   0x74  Code  Lc  heap0.o [2]
+__basic_malloc               0x2ee5   0x18  Code  Gb  heap0.o [2]
+__basic_malloc_intern        0x2efd   0x94  Code  Lc  heap0.o [2]
+__call_ctors                 0x29e1   0x18  Code  Gb  cppinit.o [2]
+__call_dtors                 0x2a2f    0xc  Code  Gb  cppinit.o [2]
+__call_dtors0                0x2a3b   0x36  Code  Gb  cppinit.o [2]
+__cexit_call_dtors           0x5b4f         Code  Gb  cexit.o [6]
+__cmain                      0x5b25         Code  Gb  cmain.o [6]
+__cstart_call_dtors          0x5cc0         Data  Gb  cstart_call_dtors.o [6]
+__cxa_atexit                 0x29f9   0x36  Code  Gb  cppinit.o [2]
+__data_GetMemChunk           0x304d   0x2c  Code  Gb  xgetmemchunk.o [2]
+__data_GetMemChunk::start
+                        0x2000'0170    0x4  Data  Lc  xgetmemchunk.o [2]
+__dso_handle            0x2000'0168    0x4  Data  Gb  cppinit.o [2]
+__dwrite                     0x5805   0x1e  Code  Gb  dwrite.o [7]
+__exit                       0x1bb9   0x14  Code  Gb  exit.o [7]
+__iar_Fail_s                  0xf31   0x1c  Code  Gb  xfail_s.o [2]
+__iar_Memchr                  0xfb1         Code  Gb  memchr.o [6]
+__iar_Memset                 0x2d55         Code  Gb  ABImemset.o [6]
+__iar_Memset_word            0x2d5d         Code  Gb  ABImemset.o [6]
+__iar_Sto32                  0x36b5   0xec  Code  Gb  strto32.o [5]
+__iar_Stoflt                 0x3a01  0x1a8  Code  Gb  iar_Stoflt.o [2]
+__iar_Stopfx                 0x38e1  0x120  Code  Gb  iar_Stopfx.o [2]
+__iar_Stoxflt                0x3ba9  0x1d8  Code  Gb  iar_Stoxflt.o [2]
+__iar_Stoxflt::digits        0x3d84   0x18  Data  Lc  iar_Stoxflt.o [2]
+__iar_Stoxflt::vals          0x3d9c   0x18  Data  Lc  iar_Stoxflt.o [2]
+__iar_Strchr                  0xef9         Code  Gb  strchr.o [6]
+__iar_close_ttio             0x1bcd   0x2c  Code  Gb  iarttio.o [7]
+__iar_copy_init3              0xecf   0x2a  Code  Gb  copy_init3.o [6]
+__iar_cstart_call_ctors
+                             0x5b05   0x20  Code  Gb  cmain_call_ctors.o [6]
+__iar_data_init3             0x59ed   0x28  Code  Gb  data_init.o [6]
+__iar_debug_exceptions       0x197b    0x1  Data  Gb  unwind_debug.o [7]
+__iar_frexp                  0x1091         Code  Gb  frexp.o [5]
+__iar_frexp32                0x37d5         Code  Gb  frexpf.o [5]
+__iar_frexpf                 0x37e9         Code  Gb  frexpf.o [5]
+__iar_frexpl                 0x1091         Code  Gb  frexp.o [5]
+__iar_get_ttio               0x1bf9   0x4c  Code  Gb  iarttio.o [7]
+__iar_init_vfp               0x5a99         Code  Gb  fpinit_M.o [5]
+__iar_ldexp32                0x381d         Code  Gb  ldexpf.o [5]
+__iar_ldexp64                0x115d         Code  Gb  ldexp.o [5]
+__iar_lookup_ttioh           0x1c49    0x8  Code  Gb  XShttio.o [2]
+__iar_program_start          0x5b5d         Code  Gb  cstartup_M.o [6]
+__iar_scalbln32              0x381d         Code  Gb  ldexpf.o [5]
+__iar_scalbln64              0x115d         Code  Gb  ldexp.o [5]
+__iar_scalbn32               0x381d         Code  Gb  ldexpf.o [5]
+__iar_scalbn64               0x115d         Code  Gb  ldexp.o [5]
+__iar_sh_stdout              0x5823   0x20  Code  Gb  iarwstd.o [7]
+__iar_sh_write               0x5843   0x22  Code  Gb  iarwrite.o [7]
+__iar_softfp___iar_frexp64
+                             0x1085         Code  Gb  frexp.o [5]
+__iar_softfp_frexp           0x1085         Code  Gb  frexp.o [5]
+__iar_softfp_frexpl          0x1085         Code  Gb  frexp.o [5]
+__iar_tls$$INIT_ARRAY$$Base
+                             0x5c8c          --   Gb  - Linker created -
+__iar_tls$$INIT_ARRAY$$Limit
+                             0x5c8c          --   Gb  - Linker created -
+__iar_ttio_handles      0x2000'000c    0x8  Data  Lc  XShttio.o [2]
+__iar_unaligned_memcpy       0x1009         Code  Gb  ABImemcpy_unaligned.o [6]
+__iar_unaligned_memcpy4
+                             0x1029         Code  Gb  ABImemcpy_unaligned.o [6]
+__iar_unaligned_memcpy8
+                             0x1029         Code  Gb  ABImemcpy_unaligned.o [6]
+__iar_unaligned_memmove
+                             0x3491         Code  Gb  ABImemmove_unaligned.o [6]
+__iar_unaligned_memmove4
+                             0x3491         Code  Gb  ABImemmove_unaligned.o [6]
+__iar_unaligned_memmove8
+                             0x3491         Code  Gb  ABImemmove_unaligned.o [6]
+__iar_zero_init3             0x5865   0x38  Code  Gb  zero_init3.o [6]
+__low_level_init             0x5b43    0x4  Code  Gb  low_level_init.o [2]
+__read                       0x566d   0x30  Code  Gb  read.o [7]
+__sti__routine               0x468b    0xa  Code  Lc  ios.o [3]
+__sti__routine               0x50ad   0x94  Code  Lc  iostream_cin.o [3]
+__sti__routine               0x522d   0x90  Code  Lc  iostream_cout.o [3]
+__ungetchar                  0x5663    0x6  Code  Gb  getchar.o [2]
+__vector_table                  0x0         Data  Gb  vector_table_M.o [6]
+__write                      0x57f5   0x10  Code  Gb  write.o [7]
+_call_main                   0x5b31         Code  Gb  cmain.o [6]
+_exit                        0x5b4d         Code  Gb  cexit.o [6]
+abort                        0x1bad    0x6  Code  Gb  abort.o [2]
+bool std::operator !=<char, std::char_traits<char>>(std::istreambuf_iterator<char, std::char_traits<char>> const &, std::istreambuf_iterator<char, std::char_traits<char>> const &)
+                             0x264f   0x14  Code  Wk  main.o [1]
+bool std::operator ==<char, std::char_traits<char>>(std::istreambuf_iterator<char, std::char_traits<char>> const &, std::istreambuf_iterator<char, std::char_traits<char>> const &)
+                             0x260f    0x8  Code  Wk  main.o [1]
+char * && std::forward<char *>(std::remove_reference<char *>::type &)
+                             0x2e39    0x2  Code  Wk  main.o [1]
+char * std::_Addressof<char>(char &, std::integral_constant<bool, (bool)0>)
+                             0x2d11    0x2  Code  Wk  main.o [1]
+char * std::_Allocate<char>(unsigned int, char *)
+                             0x2eb3   0x12  Code  Wk  main.o [1]
+char * std::_Maklocstr<char>(char const *, char *)
+                             0x2e53   0x34  Code  Wk  main.o [1]
+char * std::addressof<char>(char &)
+                             0x2b41   0x10  Code  Wk  main.o [1]
+char std::_Maklocchr<char>(char, char *)
+                             0x2e01    0x4  Code  Wk  main.o [1]
+const std::allocator<char>& && std::forward<const std::allocator<char>&>(std::remove_reference<const std::allocator<char>&>::type &)
+                             0x2e05    0x2  Code  Wk  main.o [1]
+exit                         0x5b47    0x4  Code  Gb  exit.o [2]
+free                         0x3021    0x4  Code  Gb  heaptramp0.o [2]
+frexpf                       0x37d5         Code  Gb  frexpf.o [5]
+getchar                      0x5635   0x2e  Code  Gb  getchar.o [2]
+isspace                      0x4fdb   0x14  Code  Wk  isspace.o [2]
+ldexp                        0x115d         Code  Gb  ldexp.o [5]
+ldexpf                       0x381d         Code  Gb  ldexpf.o [5]
+ldexpl                       0x115d         Code  Gb  ldexp.o [5]
+main                         0x4881  0x11c  Code  Gb  main.o [1]
+memchr                        0xfb1         Code  Gb  memchr.o [6]
+next_abi_dtor_rec       0x2000'0164    0x4  Data  Lc  cppinit.o [2]
+operator delete (void *)
+                             0x2ea3    0xa  Code  Gb  delop_0.o [4]
+operator delete (void *, unsigned int)
+                             0x47ed    0x4  Code  Gb  delop4_0.o [4]
+operator new (unsigned int)
+                             0x3025   0x24  Code  Gb  newop_0.o [4]
+operator new (unsigned int, void *)
+                             0x3049    0x4  Code  Wk  main.o [1]
+pows                         0x37bc   0x18  Data  Lc  strto32.o [5]
+putchar                      0x57d5   0x20  Code  Gb  putchar.o [2]
+scalbln                      0x115d         Code  Gb  ldexp.o [5]
+scalblnf                     0x381d         Code  Gb  ldexpf.o [5]
+scalblnl                     0x115d         Code  Gb  ldexp.o [5]
+scalbn                       0x115d         Code  Gb  ldexp.o [5]
+scalbnf                      0x381d         Code  Gb  ldexpf.o [5]
+scalbnl                      0x115d         Code  Gb  ldexp.o [5]
+scale                         0xde5   0x46  Code  Lc  xprintffull_nomb.o [2]
+sec_hand                0x2000'0174    0x4  Data  Lc  xfail_s.o [2]
+sprintf                      0x42e9   0x40  Code  Gb  sprintf.o [2]
+std::_Compressed_pair<std::_Wrap_alloc<std::allocator<char>>, std::_String_val<std::_Simple_types<char>>, (bool)1>::_Compressed_pair<const std::allocator<char>&>(std::_One_then_variadic_args_t, const std::allocator<char>& &&,  &&...)
+                             0x2ceb   0x1c  Code  Wk  main.o [1]
+std::_Compressed_pair<std::_Wrap_alloc<std::allocator<char>>, std::_String_val<std::_Simple_types<char>>, (bool)1>::_Get_first()
+                             0x2d07    0x2  Code  Wk  main.o [1]
+std::_Compressed_pair<std::_Wrap_alloc<std::allocator<char>>, std::_String_val<std::_Simple_types<char>>, (bool)1>::_Get_first() const
+                             0x2e23    0x2  Code  Wk  main.o [1]
+std::_Compressed_pair<std::_Wrap_alloc<std::allocator<char>>, std::_String_val<std::_Simple_types<char>>, (bool)1>::_Get_second()
+                             0x2d1f    0x2  Code  Wk  main.o [1]
+std::_Compressed_pair<std::_Wrap_alloc<std::allocator<char>>, std::_String_val<std::_Simple_types<char>>, (bool)1>::_Get_second() const
+                             0x2ce9    0x2  Code  Wk  main.o [1]
+std::_Fpz               0x2000'0140   0x10  Data  Gb  ios.o [3]
+std::_NomemoryNothrow()
+                             0x3079    0x4  Code  Gb  nomemory.o [4]
+std::_String_alloc<std::_String_base_types<char, std::allocator<char>>>::_Bx()
+                             0x2b27    0x8  Code  Wk  main.o [1]
+std::_String_alloc<std::_String_base_types<char, std::allocator<char>>>::_Get_data()
+                             0x2b67    0x8  Code  Wk  main.o [1]
+std::_String_alloc<std::_String_base_types<char, std::allocator<char>>>::_Get_data() const
+                             0x2ae9    0x8  Code  Wk  main.o [1]
+std::_String_alloc<std::_String_base_types<char, std::allocator<char>>>::_Getal()
+                             0x2b2f    0x8  Code  Wk  main.o [1]
+std::_String_alloc<std::_String_base_types<char, std::allocator<char>>>::_Getal() const
+                             0x2d21    0x8  Code  Wk  main.o [1]
+std::_String_alloc<std::_String_base_types<char, std::allocator<char>>>::_Myptr()
+                             0x29cb    0xc  Code  Wk  main.o [1]
+std::_String_alloc<std::_String_base_types<char, std::allocator<char>>>::_Myptr() const
+                             0x2823    0xc  Code  Wk  main.o [1]
+std::_String_alloc<std::_String_base_types<char, std::allocator<char>>>::_Myres()
+                             0x2b1d    0xa  Code  Wk  main.o [1]
+std::_String_alloc<std::_String_base_types<char, std::allocator<char>>>::_Mysize()
+                             0x28f5    0xa  Code  Wk  main.o [1]
+std::_String_alloc<std::_String_base_types<char, std::allocator<char>>>::_Mysize() const
+                             0x282f    0xa  Code  Wk  main.o [1]
+std::_String_alloc<std::_String_base_types<char, std::allocator<char>>>::_String_alloc(const std::allocator<char>&)
+                             0x2b05   0x18  Code  Wk  main.o [1]
+std::_String_alloc<std::_String_base_types<char, std::allocator<char>>>::_String_alloc(const std::allocator<char>&) [subobject]
+                             0x2839    0x8  Code  Wk  main.o [1]
+std::_String_val<std::_Simple_types<char>>::_Myptr()
+                             0x2c73   0x12  Code  Wk  main.o [1]
+std::_String_val<std::_Simple_types<char>>::_Myptr() const
+                             0x2af1   0x12  Code  Wk  main.o [1]
+std::_String_val<std::_Simple_types<char>>::_String_val()
+                             0x2e0f    0xa  Code  Wk  main.o [1]
+std::_Wrap_alloc<std::allocator<char>>::_Wrap_alloc(const std::allocator<char>&)
+                             0x2ea1    0x2  Code  Wk  main.o [1]
+std::_Wrap_alloc<std::allocator<char>>::_Wrap_alloc(const std::allocator<char>&) [subobject]
+                             0x2e07    0x8  Code  Wk  main.o [1]
+std::_Wrap_alloc<std::allocator<char>>::allocate(unsigned int)
+                             0x2d31    0x8  Code  Wk  main.o [1]
+std::_Wrap_alloc<std::allocator<char>>::deallocate(char *, unsigned int)
+                             0x2b5f    0x8  Code  Wk  main.o [1]
+std::_Wrap_alloc<std::allocator<char>>::max_size(std::_Nil) const
+                             0x2d29    0x8  Code  Wk  main.o [1]
+std::_Wrap_facet<std::ctype<char>>::_Wrap_facet()
+                             0x275d   0x18  Code  Wk  main.o [1]
+std::_Wrap_facet<std::num_get<char, std::istreambuf_iterator<char, std::char_traits<char>>>>::_Wrap_facet()
+                             0x4ea9   0x18  Code  Wk  main.o [1]
+std::_Wrap_facet<std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char>>>>::_Wrap_facet()
+                             0x4da5   0x18  Code  Wk  main.o [1]
+std::_Wrap_facet<std::numpunct<char>>::_Wrap_facet()
+                             0x2739   0x18  Code  Wk  main.o [1]
+std::_Wrap_facet<std::numpunct<char>>::~_Wrap_facet()
+                             0x5c45    0xe  Code  Wk  main.o [1]
+std::__iar_New_hand     0x2000'016c    0x4  Data  Gb  new.o [4]
+std::__iar_cout_guard::~__iar_cout_guard()
+                             0x5bbd   0x14  Code  Wk  iostream_cout.o [3]
+std::__nobasic_filebuf<char, std::char_traits<char>>::__nobasic_filebuf()
+                             0x5141   0x5c  Code  Wk  iostream_cin.o [3]
+std::__nobasic_filebuf<char, std::char_traits<char>>::overflow(int)
+                             0x579d   0x38  Code  Wk  iostream_cin.o [3]
+std::__nobasic_filebuf<char, std::char_traits<char>>::pbackfail(int)
+                             0x55eb   0x4a  Code  Wk  iostream_cin.o [3]
+std::__nobasic_filebuf<char, std::char_traits<char>>::uflow()
+                             0x5971   0x2c  Code  Wk  iostream_cin.o [3]
+std::__nobasic_filebuf<char, std::char_traits<char>>::underflow()
+                             0x589d   0x34  Code  Wk  iostream_cin.o [3]
+std::allocator<char>::allocate(unsigned int)
+                             0x2e2d    0xc  Code  Wk  main.o [1]
+std::allocator<char>::deallocate(char *, unsigned int)
+                             0x2d13    0xc  Code  Wk  main.o [1]
+std::allocator<char>::max_size() const
+                             0x2ead    0x6  Code  Wk  main.o [1]
+std::allocator_traits<std::allocator<char>>::max_size(const std::allocator<char>&)
+                             0x2e25    0x8  Code  Wk  main.o [1]
+std::char_traits<char>::assign(char &, char const &)
+                             0x2c5d    0x6  Code  Wk  main.o [1]
+std::char_traits<char>::assign(char *, unsigned int, char)
+                             0x2c63   0x10  Code  Wk  main.o [1]
+std::char_traits<char>::copy(char *, char const *, unsigned int)
+                             0x2b51    0xe  Code  Wk  main.o [1]
+std::char_traits<char>::eq_int_type(int const &, int const &)
+                             0x2aad   0x12  Code  Wk  main.o [1]
+std::char_traits<char>::length(char const *)
+                             0x44db    0x8  Code  Wk  main.o [1]
+std::char_traits<char>::move(char *, char const *, unsigned int)
+                             0x344f    0xe  Code  Wk  main.o [1]
+std::char_traits<char>::to_char_type(int const &)
+                             0x2abf    0x6  Code  Wk  main.o [1]
+std::char_traits<char>::to_int_type(char const &)
+                             0x2cd7    0x4  Code  Wk  main.o [1]
+std::cin                0x2000'0014   0x30  Data  Gb  iostream_cin.o [3]
+std::cout               0x2000'0084   0x2c  Data  Gb  iostream_cout.o [3]
+std::ctype<char> const & std::use_facet<std::ctype<char>>()
+                             0x25dd   0x20  Code  Wk  main.o [1]
+std::ctype<char> const & std::use_facet<std::ctype<char>>()::_MyFacet
+                        0x2000'015c    0x4  Data  Wk  main.o [1]
+std::ctype<char>::ctype()
+                             0x2cad    0xc  Code  Wk  main.o [1]
+std::ctype<char>::ctype() [subobject]
+                             0x2a81    0x8  Code  Wk  main.o [1]
+std::ctype<char>::is(short, char) const
+                             0x4f19   0x20  Code  Wk  main.o [1]
+std::ctype<char>::narrow(char, char) const
+                             0x4fd5    0x6  Code  Wk  main.o [1]
+std::ctype<char>::widen(char const *, char const *, char *) const
+                             0x25fd   0x12  Code  Wk  main.o [1]
+std::ctype<char>::widen(char) const
+                             0x334b    0x6  Code  Wk  main.o [1]
+std::ios::clear(std::_Iosb<int>::_Iostate, bool)
+                             0x4623   0x18  Code  Wk  main.o [1]
+std::ios::fill() const       0x4561    0x6  Code  Wk  main.o [1]
+std::ios::rdbuf() const
+                             0x4567    0x4  Code  Wk  main.o [1]
+std::ios::setstate(std::_Iosb<int>::_Iostate, bool)
+                             0x4575   0x28  Code  Wk  main.o [1]
+std::ios::tie() const        0x45c7    0x4  Code  Wk  main.o [1]
+std::ios::widen(char) const
+                             0x595f   0x12  Code  Wk  main.o [1]
+std::ios_base::_Addstd(std::ios_base*)
+                             0x46f5   0x32  Code  Gb  ios.o [3]
+std::ios_base::_Callfns(std::ios_base::event)
+                             0x46d9   0x1c  Code  Gb  ios.o [3]
+std::ios_base::_Init()       0x4735   0x1c  Code  Gb  ios.o [3]
+std::ios_base::_Tidy()       0x4751   0x38  Code  Gb  ios.o [3]
+std::ios_base::clear(std::_Iosb<int>::_Iostate, bool)
+                             0x4695   0x20  Code  Gb  ios.o [3]
+std::ios_base::flags() const
+                             0x20fd    0x4  Code  Wk  main.o [1]
+std::ios_base::good() const
+                             0x45b3   0x14  Code  Wk  main.o [1]
+std::ios_base::precision() const
+                             0x41c5    0x4  Code  Wk  main.o [1]
+std::ios_base::rdstate() const
+                             0x461f    0x4  Code  Wk  main.o [1]
+std::ios_base::width() const
+                             0x33e7    0x4  Code  Wk  main.o [1]
+std::ios_base::width(int)
+                             0x3447    0x8  Code  Wk  main.o [1]
+std::ios_base::~ios_base()
+                             0x46b5   0x24  Code  Gb  ios.o [3]
+std::ios_base::~ios_base() [subobject]
+                             0x4689    0x2  Code  Gb  ios.o [3]
+std::istream::_Ipfx(bool)
+                             0x4dc5   0xe4  Code  Wk  main.o [1]
+std::istream::_Sentry_base::_Sentry_base(std::istream&)
+                             0x4ed1   0x48  Code  Wk  main.o [1]
+std::istream::_Sentry_base::_Sentry_base(std::istream&) [subobject]
+                             0x4dbd    0x8  Code  Wk  main.o [1]
+std::istream::_Sentry_base::~_Sentry_base()
+                             0x4f83   0x46  Code  Wk  main.o [1]
+std::istream::_Sentry_base::~_Sentry_base() [subobject]
+                             0x4ec1    0x8  Code  Wk  main.o [1]
+std::istream::operator >>(float &)
+                             0x4b11   0x84  Code  Wk  main.o [1]
+std::istream::sentry::operator bool() const
+                             0x4cc1    0x4  Code  Wk  main.o [1]
+std::istream::sentry::sentry(std::istream&, bool)
+                             0x4ca5   0x1c  Code  Wk  main.o [1]
+std::istream::sentry::~sentry()
+                             0x4d27    0xe  Code  Wk  main.o [1]
+std::istream::~basic_istream()
+                             0x5c35   0x10  Code  Wk  iostream_cin.o [3]
+std::istreambuf_iterator<char, std::char_traits<char>>::_Inc()
+                             0x27ef   0x34  Code  Wk  main.o [1]
+std::istreambuf_iterator<char, std::char_traits<char>>::_Peek() const
+                             0x27b5   0x3a  Code  Wk  main.o [1]
+std::istreambuf_iterator<char, std::char_traits<char>>::equal(const std::istreambuf_iterator<char, std::char_traits<char>>&) const
+                             0x2775   0x40  Code  Wk  main.o [1]
+std::istreambuf_iterator<char, std::char_traits<char>>::istreambuf_iterator(std::streambuf *)
+                             0x4ce5   0x14  Code  Wk  main.o [1]
+std::istreambuf_iterator<char, std::char_traits<char>>::operator *() const
+                             0x2617   0x14  Code  Wk  main.o [1]
+std::istreambuf_iterator<char, std::char_traits<char>>::operator ++()
+                             0x262b    0xe  Code  Wk  main.o [1]
+std::num_get<char, std::istreambuf_iterator<char, std::char_traits<char>>> const & std::use_facet<std::num_get<char, std::istreambuf_iterator<char, std::char_traits<char>>>>()
+                             0x4cc5   0x20  Code  Wk  main.o [1]
+std::num_get<char, std::istreambuf_iterator<char, std::char_traits<char>>> const & std::use_facet<std::num_get<char, std::istreambuf_iterator<char, std::char_traits<char>>>>()::_MyFacet
+                        0x2000'0160    0x4  Data  Wk  main.o [1]
+std::num_get<char, std::istreambuf_iterator<char, std::char_traits<char>>>::_Getffld(char *, std::istreambuf_iterator<char, std::char_traits<char>> &, std::istreambuf_iterator<char, std::char_traits<char>> &, std::ios_base &, int *) const
+                             0x1c51  0x4ac  Code  Wk  main.o [1]
+std::num_get<char, std::istreambuf_iterator<char, std::char_traits<char>>>::_Getffld(char *, std::istreambuf_iterator<char, std::char_traits<char>> &, std::istreambuf_iterator<char, std::char_traits<char>> &, std::ios_base &, int *) const::_Src
+                             0x5c04   0x10  Data  Wk  main.o [1]
+std::num_get<char, std::istreambuf_iterator<char, std::char_traits<char>>>::_Getffldx(char *, std::istreambuf_iterator<char, std::char_traits<char>> &, std::istreambuf_iterator<char, std::char_traits<char>> &, std::ios_base &, int *) const
+                             0x2109  0x498  Code  Wk  main.o [1]
+std::num_get<char, std::istreambuf_iterator<char, std::char_traits<char>>>::_Getffldx(char *, std::istreambuf_iterator<char, std::char_traits<char>> &, std::istreambuf_iterator<char, std::char_traits<char>> &, std::ios_base &, int *) const::_Src
+                             0x5ae4   0x20  Data  Wk  main.o [1]
+std::num_get<char, std::istreambuf_iterator<char, std::char_traits<char>>>::do_get(std::istreambuf_iterator<char, std::char_traits<char>>, std::istreambuf_iterator<char, std::char_traits<char>>, std::ios_base &, std::_Iosb<int>::_Iostate &, float &) const
+                             0x519d   0x90  Code  Wk  main.o [1]
+std::num_get<char, std::istreambuf_iterator<char, std::char_traits<char>>>::get(std::istreambuf_iterator<char, std::char_traits<char>>, std::istreambuf_iterator<char, std::char_traits<char>>, std::ios_base &, std::_Iosb<int>::_Iostate &, float &) const
+                             0x4cf9   0x2e  Code  Wk  main.o [1]
+std::num_get<char, std::istreambuf_iterator<char, std::char_traits<char>>>::num_get()
+                             0x5001    0xc  Code  Wk  main.o [1]
+std::num_get<char, std::istreambuf_iterator<char, std::char_traits<char>>>::num_get() [subobject]
+                             0x4f7b    0x8  Code  Wk  main.o [1]
+std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char>>> const & std::use_facet<std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char>>>>()
+                             0x4c51   0x20  Code  Wk  main.o [1]
+std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char>>> const & std::use_facet<std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char>>>>()::_MyFacet
+                        0x2000'0158    0x4  Data  Wk  main.o [1]
+std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char>>>::_Ffmt(char *, char, std::_Iosb<int>::_Fmtflags) const
+                             0x41e9   0xfe  Code  Wk  main.o [1]
+std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char>>>::_Fput(std::ostreambuf_iterator<char, std::char_traits<char>>, std::ios_base &, char, char const *, unsigned int, unsigned int, unsigned int, unsigned int) const
+                             0x307d  0x2ac  Code  Wk  main.o [1]
+std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char>>>::_Fput(std::ostreambuf_iterator<char, std::char_traits<char>>, std::ios_base &, char, char const *, unsigned int, unsigned int, unsigned int, unsigned int) const::string
+                             0x5cac    0x4  Data  Wk  main.o [1]
+std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char>>>::_Fput(std::ostreambuf_iterator<char, std::char_traits<char>>, std::ios_base &, char, char const *, unsigned int, unsigned int, unsigned int, unsigned int) const::string (instance 2)
+                             0x5cb0    0x4  Data  Wk  main.o [1]
+std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char>>>::_Ifmt(char *, char const *, std::_Iosb<int>::_Fmtflags) const
+                             0x500d   0xa0  Code  Wk  main.o [1]
+std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char>>>::_Iput(std::ostreambuf_iterator<char, std::char_traits<char>>, std::ios_base &, char, char *, unsigned int) const
+                             0x3db5  0x234  Code  Wk  main.o [1]
+std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char>>>::_Put(std::ostreambuf_iterator<char, std::char_traits<char>>, char const *, unsigned int) const
+                             0x3419   0x2e  Code  Wk  main.o [1]
+std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char>>>::_Rep(std::ostreambuf_iterator<char, std::char_traits<char>>, char, unsigned int) const
+                             0x33eb   0x2e  Code  Wk  main.o [1]
+std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char>>>::do_put(std::ostreambuf_iterator<char, std::char_traits<char>>, std::ios_base &, char, double) const
+                             0x3fe9  0x1dc  Code  Wk  main.o [1]
+std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char>>>::do_put(std::ostreambuf_iterator<char, std::char_traits<char>>, std::ios_base &, char, long) const
+                             0x54a9   0x60  Code  Wk  main.o [1]
+std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char>>>::do_put(std::ostreambuf_iterator<char, std::char_traits<char>>, std::ios_base &, char, long) const::string
+                             0x5ca8    0x4  Data  Wk  main.o [1]
+std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char>>>::num_put()
+                             0x4fc9    0xc  Code  Wk  main.o [1]
+std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char>>>::num_put() [subobject]
+                             0x4ec9    0x8  Code  Wk  main.o [1]
+std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char>>>::put(std::ostreambuf_iterator<char, std::char_traits<char>>, std::ios_base &, char, double) const
+                             0x4d7d   0x28  Code  Wk  main.o [1]
+std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char>>>::put(std::ostreambuf_iterator<char, std::char_traits<char>>, std::ios_base &, char, long) const
+                             0x4c79   0x28  Code  Wk  main.o [1]
+std::numpunct<char> const & std::use_facet<std::numpunct<char>>()
+                             0x25a1   0x30  Code  Wk  main.o [1]
+std::numpunct<char> const & std::use_facet<std::numpunct<char>>()::_MyFacet
+                        0x2000'0128   0x14  Data  Wk  main.o [1]
+std::numpunct<char>::_Init()
+                             0x2dbd   0x44  Code  Wk  main.o [1]
+std::numpunct<char>::_Init()::string
+                             0x17b2    0x1  Data  Wk  main.o [1]
+std::numpunct<char>::_Init()::string (instance 2)
+                             0x5c98    0x8  Data  Wk  main.o [1]
+std::numpunct<char>::_Init()::string (instance 3)
+                             0x5ca0    0x8  Data  Wk  main.o [1]
+std::numpunct<char>::_Tidy()
+                             0x5b91   0x18  Code  Wk  main.o [1]
+std::numpunct<char>::decimal_point() const
+                             0x272d    0xa  Code  Wk  main.o [1]
+std::numpunct<char>::do_decimal_point() const
+                             0x5cb5    0x4  Code  Wk  main.o [1]
+std::numpunct<char>::do_grouping() const
+                             0x5c8d    0xa  Code  Wk  main.o [1]
+std::numpunct<char>::do_thousands_sep() const
+                             0x5cb9    0x4  Code  Wk  main.o [1]
+std::numpunct<char>::grouping() const
+                             0x25d1    0xa  Code  Wk  main.o [1]
+std::numpunct<char>::numpunct()
+                             0x2c85   0x28  Code  Wk  main.o [1]
+std::numpunct<char>::numpunct() [subobject]
+                             0x29d7    0x8  Code  Wk  main.o [1]
+std::numpunct<char>::thousands_sep() const
+                             0x2681    0xa  Code  Wk  main.o [1]
+std::numpunct<char>::~numpunct()
+                             0x5b79   0x18  Code  Wk  main.o [1]
+std::numpunct<char>::~numpunct() [subobject]
+                             0x5c53    0x8  Code  Wk  main.o [1]
+std::operator &(std::_Iosb<int>::_Fmtflags, std::_Iosb<int>::_Fmtflags)
+                             0x2101    0x6  Code  Wk  main.o [1]
+std::operator |=(std::_Iosb<int>::_Iostate &, std::_Iosb<int>::_Iostate)
+                             0x4559    0x8  Code  Wk  main.o [1]
+std::ostream & std::endl<char, std::char_traits<char>>(std::ostream &)
+                             0x5931   0x2e  Code  Wk  main.o [1]
+std::ostream & std::operator <<<std::char_traits<char>>(std::ostream &, char const *)
+                             0x4329  0x1b2  Code  Wk  main.o [1]
+std::ostream::_Flush_sentry::_Flush_sentry(std::ostream&)
+                             0x4643   0x28  Code  Wk  main.o [1]
+std::ostream::_Flush_sentry::_Flush_sentry(std::ostream&) [subobject]
+                             0x45ab    0x8  Code  Wk  main.o [1]
+std::ostream::_Flush_sentry::operator bool() const
+                             0x4555    0x4  Code  Wk  main.o [1]
+std::ostream::_Flush_sentry::~_Flush_sentry()
+                             0x4675   0x14  Code  Wk  main.o [1]
+std::ostream::_Flush_sentry::~_Flush_sentry() [subobject]
+                             0x463b    0x8  Code  Wk  main.o [1]
+std::ostream::_Osfx()        0x4791   0x54  Code  Wk  main.o [1]
+std::ostream::_Sentry_base::_Sentry_base(std::ostream&)
+                             0x47f1   0x48  Code  Wk  main.o [1]
+std::ostream::_Sentry_base::_Sentry_base(std::ostream&) [subobject]
+                             0x4789    0x8  Code  Wk  main.o [1]
+std::ostream::_Sentry_base::~_Sentry_base()
+                             0x4839   0x46  Code  Wk  main.o [1]
+std::ostream::_Sentry_base::~_Sentry_base() [subobject]
+                             0x47e5    0x8  Code  Wk  main.o [1]
+std::ostream::flush()        0x45cb   0x54  Code  Wk  main.o [1]
+std::ostream::operator <<(float)
+                             0x4b95   0xba  Code  Wk  main.o [1]
+std::ostream::operator <<(int)
+                             0x4a45   0xcc  Code  Wk  main.o [1]
+std::ostream::operator <<(long)
+                             0x499d   0xa2  Code  Wk  main.o [1]
+std::ostream::operator <<(std::ostream&(*)(std::ostream&))
+                             0x4a3f    0x6  Code  Wk  main.o [1]
+std::ostream::put(char)
+                             0x53c7   0x76  Code  Wk  main.o [1]
+std::ostream::sentry::sentry(std::ostream&)
+                             0x44e3   0x72  Code  Wk  main.o [1]
+std::ostream::sentry::~sentry()
+                             0x459d    0xe  Code  Wk  main.o [1]
+std::ostream::~basic_ostream()
+                             0x5c5b    0xe  Code  Wk  iostream_cout.o [3]
+std::ostreambuf_iterator<char, std::char_traits<char>>::failed() const
+                             0x4ca1    0x4  Code  Wk  main.o [1]
+std::ostreambuf_iterator<char, std::char_traits<char>>::operator *()
+                             0x345d    0x2  Code  Wk  main.o [1]
+std::ostreambuf_iterator<char, std::char_traits<char>>::operator ++()
+                             0x348d    0x2  Code  Wk  main.o [1]
+std::ostreambuf_iterator<char, std::char_traits<char>>::operator =(char)
+                             0x345f   0x2e  Code  Wk  main.o [1]
+std::ostreambuf_iterator<char, std::char_traits<char>>::ostreambuf_iterator(std::streambuf *)
+                             0x4c71    0x8  Code  Wk  main.o [1]
+std::remove_reference<char *&>::type && std::move<char *&>(char *& &&)
+                             0x2d39    0x2  Code  Wk  main.o [1]
+std::streambuf::_Gnavail() const
+                             0x2cb9   0x18  Code  Wk  main.o [1]
+std::streambuf::_Gninc()
+                             0x2cdb    0xe  Code  Wk  main.o [1]
+std::streambuf::_Gnpreinc()
+                             0x4fef   0x10  Code  Wk  main.o [1]
+std::streambuf::_Lock()
+                             0x12f7    0x2  Code  Wk  iostream_cin.o [3]
+std::streambuf::_Pnavail() const
+                             0x353b   0x18  Code  Wk  main.o [1]
+std::streambuf::_Pninc()
+                             0x3553    0xe  Code  Wk  main.o [1]
+std::streambuf::_Unlock()
+                             0x1547    0x2  Code  Wk  iostream_cin.o [3]
+std::streambuf::gptr() const
+                             0x2cd1    0x6  Code  Wk  main.o [1]
+std::streambuf::overflow(int)
+                             0x107f    0x6  Code  Wk  iostream_cin.o [3]
+std::streambuf::pubsync()
+                             0x466b    0xa  Code  Wk  main.o [1]
+std::streambuf::sbumpc()
+                             0x2ac5   0x24  Code  Wk  main.o [1]
+std::streambuf::sgetc()
+                             0x2a89   0x24  Code  Wk  main.o [1]
+std::streambuf::snextc()
+                             0x4f39   0x42  Code  Wk  main.o [1]
+std::streambuf::sputc(char)
+                             0x3509   0x32  Code  Wk  main.o [1]
+std::streambuf::sputn(char const *, int)
+                             0x456b    0xa  Code  Wk  main.o [1]
+std::streambuf::sync()       0x5cbd    0x4  Code  Wk  iostream_cin.o [3]
+std::streambuf::uflow()
+                              0xf0f   0x22  Code  Wk  iostream_cin.o [3]
+std::streambuf::underflow()
+                             0x1297    0x6  Code  Wk  iostream_cin.o [3]
+std::streambuf::xsputn(char const *, int)
+                             0x5509   0x5e  Code  Wk  iostream_cin.o [3]
+std::string::_Chassign(unsigned int, unsigned int, char)
+                             0x2979   0x2a  Code  Wk  main.o [1]
+std::string::_Copy(unsigned int, unsigned int)
+                             0x2b87   0xd6  Code  Wk  main.o [1]
+std::string::_Eos(unsigned int)
+                             0x29a3   0x28  Code  Wk  main.o [1]
+std::string::_Grow(unsigned int, bool)
+                             0x28ff   0x7a  Code  Wk  main.o [1]
+std::string::_Inside(char const *)
+                             0x55b9   0x32  Code  Wk  main.o [1]
+std::string::_Tidy(bool, unsigned int)
+                             0x2841   0x7a  Code  Wk  main.o [1]
+std::string::append(unsigned int, char)
+                             0x26b5   0x5a  Code  Wk  main.o [1]
+std::string::assign(char const *)
+                             0x5a81   0x18  Code  Wk  main.o [1]
+std::string::assign(char const *, unsigned int)
+                             0x5567   0x52  Code  Wk  main.o [1]
+std::string::assign(const std::string&, unsigned int, unsigned int)
+                             0x52bd   0x7c  Code  Wk  main.o [1]
+std::string::assign(unsigned int, char)
+                             0x28bb   0x3a  Code  Wk  main.o [1]
+std::string::basic_string(char const *)
+                             0x5a5d   0x24  Code  Wk  main.o [1]
+std::string::basic_string(unsigned int, char)
+                             0x268b   0x2a  Code  Wk  main.o [1]
+std::string::erase(unsigned int)
+                             0x5339   0x22  Code  Wk  main.o [1]
+std::string::erase(unsigned int, unsigned int)
+                             0x535b   0x6c  Code  Wk  main.o [1]
+std::string::insert(unsigned int, unsigned int, char)
+                             0x3351   0x96  Code  Wk  main.o [1]
+std::string::max_size() const
+                             0x2b6f   0x18  Code  Wk  main.o [1]
+std::string::operator [](unsigned int)
+                             0x270f    0xc  Code  Wk  main.o [1]
+std::string::operator [](unsigned int) const
+                             0x2639    0xc  Code  Wk  main.o [1]
+std::string::size() const
+                             0x2645    0xa  Code  Wk  main.o [1]
+std::string::~basic_string()
+                             0x271b   0x12  Code  Wk  main.o [1]
+strchr                        0xef9         Code  Gb  strchr.o [6]
+strcspn                      0x3329   0x22  Code  Gb  strcspn.o [2]
+strlen                        0xf71         Code  Gb  strlen.o [6]
+unsigned int std::_Find_elem<char>(char *, char)
+                             0x2663   0x1e  Code  Wk  main.o [1]
+void std::_Deallocate<char>(char *, unsigned int)
+                             0x2e1b    0x8  Code  Wk  main.o [1]
+void std::_Wrap_alloc<std::allocator<char>>::construct<char *, char *>(char * *, char * &&...)
+                             0x2d3b   0x18  Code  Wk  main.o [1]
+void std::_Wrap_alloc<std::allocator<char>>::destroy<char *>(char * *)
+                             0x2b37    0x8  Code  Wk  main.o [1]
+void std::allocator<char>::construct<char *, char *>(char * *, char * &&...)
+                             0x2ec5   0x20  Code  Wk  main.o [1]
+void std::allocator<char>::destroy<char *>(char * *)
+                             0x2e19    0x2  Code  Wk  main.o [1]
+void std::allocator_traits<std::allocator<char>>::construct<char *, char *>(std::allocator<char>&, char * *, char * &&...)
+                             0x2e3b   0x18  Code  Wk  main.o [1]
+void std::allocator_traits<std::allocator<char>>::destroy<char *>(std::allocator<char>&, char * *)
+                             0x2d09    0x8  Code  Wk  main.o [1]
+void std::numpunct<char>::_Getvals<char>(char)
+                             0x2e87   0x1a  Code  Wk  main.o [1]
+
+
+[1] = C:\Users\joaov\OneDrive\햞ea de Trabalho\Estudos\2022.2\Sistemas Embarcados\kamiros7_ELF74\Lab1\Debug\Obj
+[2] = dl7M_tln.a
+[3] = dlpp7M_tls_nc.a
+[4] = dlpprt7M_tl_nc.a
+[5] = m7M_tls.a
+[6] = rt7M_tl.a
+[7] = shb_l.a
+
+  22'866 bytes of readonly  code memory
+     876 bytes of readonly  data memory
+  99'118 bytes of readwrite data memory
+
+Errors: none
+Warnings: none
