@@ -3,20 +3,15 @@
 |       Prof. Douglas Renaux
 | __________________________________________________________________________________
 |
-|		Lab 1
+|		Lab 4
 | __________________________________________________________________________________
 */
 
 /**
  * @file     main.c
- * @author   Douglas P. B. Renaux
- * @brief    Solution to Lab1 of ELF74/CSW41 - UTFPR. \n 
- *           Tools instalation and validation procedure.\n 
- *           Show messages on terminal using std::cout. \n 
- *           Show current value of some predefined macros (preprocessor symbols).\n 
- *           Read float value from terminal using std::cin.
- * @version  V2 -for 2022-1 semester
- * @date     Feb, 2022
+ * @author   Luis Camilo Jussiani Moreira e João Victor Laskoski
+ * @version  V2 -for 2022-2 semester
+ * @date     Sep, 2022
  ******************************************************************************/
 
 /*------------------------------------------------------------------------------
@@ -53,6 +48,7 @@
 #include "driverlib/pwm.h"
 #include "driverlib/sysctl.h"
 #include "driverlib/timer.h"
+#include "driverlib/uart.h"
 #include "inc/hw_ints.h"
 #include "inc/hw_memmap.h"
 
@@ -67,8 +63,11 @@
  *      Global vars
  *
  *------------------------------------------------------------------------------*/
-  int adc0IntHandlerCalled;
+  int adc0SS2IntHandlerCalled;
+  uint32_t vectorJoystick[2];
   uint32_t ui32VerticalValue;
+  uint32_t ui32HorizontalValue;
+  uint32_t ui32JoystickButtonValue;
   uint32_t pwm0Counter;
   uint32_t ui32SysClock;
 /*------------------------------------------------------------------------------
@@ -85,19 +84,19 @@
   //@pwmCounter is the N of PWMGenPeriodSet function
 uint32_t convertADOutputToPwmPulseWidth(uint32_t adOutputValue, uint32_t pwmCounter) {
     //3730          -> pwmCounter
-    //adOutputValue -> x
+    //adOutputValue -> x (return value)
     //3730 is the max value obtained on the conversor AD and 230 the min value.
-    return ((adOutputValue*pwmCounter)/3730)+230;
+    return (((adOutputValue-230)*pwmCounter)/3730);
 }
 void ADCAndTimerInit(){
     //tomando o link: https://e2e.ti.com/support/microcontrollers/arm-based-microcontrollers-group/arm-based-microcontrollers/f/arm-based-microcontrollers-forum/374217/adc-interrupt-code-for-tiva
     
-    adc0IntHandlerCalled = 0;                                                           //Inicia flag para interrupção
-    
+    adc0SS2IntHandlerCalled = 0;                                                        //Inicia flag para interrupção do SS2
     //Peripheral section
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_ADC0);                                         //Ativa um periferico (ADC0)          
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);                                        //Ativa um periferico (GPIOE)
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER0);                                       //Ativa um periferico (TIMER0)
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_ADC0);                                         //Enable the peripheral (ADC0)          
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);                                        //Enable the peripheral (GPIOE)
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER0);                                       //Enable the peripheral (TIMER0)
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOC);                                        //Enable the peripheral (GPIOC)
     
     while(!SysCtlPeripheralReady(SYSCTL_PERIPH_ADC0))
     {
@@ -108,7 +107,9 @@ void ADCAndTimerInit(){
     while(!SysCtlPeripheralReady(SYSCTL_PERIPH_TIMER0))
     {
     }
-    
+    while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOC))
+    {
+    }
     
     //TIMER section
     TimerConfigure(TIMER0_BASE, TIMER_CFG_PERIODIC);
@@ -117,14 +118,16 @@ void ADCAndTimerInit(){
     TimerControlTrigger(TIMER0_BASE, TIMER_A, true);                                    //Configura o timer como trigger
     
     //GPIO section
-    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_3);                                        //Configurando o pino PE3 para função alternativa de conversor AD
-    //GPIOADCTriggerEnable(GPIO_PORTE_BASE, GPIO_PIN_3);                                  //Indica o pino de GPIO que realizar? o trigger da convers?o
-
+    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_3);                                        //Configurando o pino PE3 para função alternativa de conversor AD (vertical)
+    GPIOPinTypeADC(GPIO_PORTE_BASE, GPIO_PIN_4);                                        //Configurando o pino PE4 para função alternativa de conversor AD (horizontal)
+    GPIOPinTypeGPIOInput(GPIO_PORTC_BASE, GPIO_PIN_6);                                 //Configure the pin PC4 like a gpio pin (joystick button like a R3 of dualsense controller)
+    
     //ADC section
-    ADCSequenceConfigure(ADC0_BASE, 3, ADC_TRIGGER_TIMER, 0);                           //Configura o sequenciador, prioridade do sequenciador e o tipo de gatilho usado
-    ADCSequenceStepConfigure(ADC0_BASE, 3, 0, 
-                             ADC_CTL_CH0|ADC_CTL_IE|ADC_CTL_END);                       //Configura o passo (relacionado a ordem se sequenciadores) e algumas configuracoes (canal 0 | interrupcoes ativas | ultima amostra lida)
-    ADCSequenceEnable(ADC0_BASE, 3);                                                    //ativa o sequenciador 3 para o ADC0
+    ADCSequenceConfigure(ADC0_BASE, 2, ADC_TRIGGER_TIMER, 0);                           //Configura o sequenciador, prioridade do sequenciador e o tipo de gatilho usado
+    
+    ADCSequenceStepConfigure(ADC0_BASE, 2, 0, ADC_CTL_CH0);                              //A pos. da vertical será a primeira amostra
+    ADCSequenceStepConfigure(ADC0_BASE, 2, 1, ADC_CTL_CH9 | ADC_CTL_IE | ADC_CTL_END);   //A pos. da horizontal será a segunda amostra (sendo a última do seq. e gerará uma interrupção quando completada)
+    ADCSequenceEnable(ADC0_BASE, 2);
 }
 
 void interruptInit(){
@@ -134,14 +137,14 @@ void interruptInit(){
     TimerIntEnable(TIMER0_BASE, TIMER_TIMA_TIMEOUT);
   
     //Interrupts for ADC
-    ADCIntEnable(ADC0_BASE, 3);                                                         //Habilita a interrupção para o seq. SS3
-    IntEnable(INT_ADC0SS3);
-    
+    ADCIntEnable(ADC0_BASE, 2);                                                         //Habilita a interrupção para o seq. SS2
+    IntEnable(INT_ADC0SS2);
+        
     IntMasterEnable();                                                                  //Habilita a chave geral de interrupções                                     
-    IntPrioritySet(INT_ADC0SS3,0);                                                      //Seta o nível de prioridade para interrupção
+    IntPrioritySet(INT_ADC0SS2,0);                                                      //Seta o nível de prioridade para interrupção
     
     TimerEnable(TIMER0_BASE,TIMER_A);
-    ADCIntClear(ADC0_BASE, 3);                                                          //ACK interrupcao para o ADC0
+    ADCIntClear(ADC0_BASE, 2);                                                          //ACK interrupcao para o ADC0 SS2
 }
 
 void LEDAndPWMInit(){
@@ -154,7 +157,7 @@ void LEDAndPWMInit(){
     // Enable the PWM peripheral
     //
     SysCtlPeripheralEnable(SYSCTL_PERIPH_PWM0);
-
+    
     while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOF))
     {
     }
@@ -165,35 +168,80 @@ void LEDAndPWMInit(){
     {
     }
     
-    GPIOPinConfigure(GPIO_PF2_M0PWM2);                  //Sets the alternative function (PWM) for pin
+    //
+    //GPIO Section
+    //
+    GPIOPinConfigure(GPIO_PF2_M0PWM2);                      //Sets the alternative function (PWM) for pin PF2
     GPIOPinTypePWM(GPIO_PORTF_BASE, GPIO_PIN_2);
     
-    //PWMClockSet(PWM0_BASE, PWM_SYSCLK_DIV_8);           //Set the PWM clock to be 15Mhz
-    //uint32_t ui32PWMClockRate = ui32SysClock / 8; 
-    
+    GPIOPinConfigure(GPIO_PF3_M0PWM3);                     //Sets the alternative function (PWM) for pin PF3
+    GPIOPinTypePWM(GPIO_PORTF_BASE, GPIO_PIN_3);
+
+    GPIOPinTypeGPIOOutput(GPIO_PORTG_BASE, GPIO_PIN_0);   //Configure the pin PG0 like a gpio pin
+    GPIOPinWrite(GPIO_PORTG_BASE, GPIO_PIN_0, 0);         //Init the pin with 0
+
+    //
+    //PWM Section
+    //
     PWMClockSet(PWM0_BASE, PWM_SYSCLK_DIV_4);           //Set the PWM clock to be 30Mhz
     uint32_t ui32PWMClockRate = ui32SysClock / 4; 
 
     PWMGenConfigure(PWM0_BASE, PWM_GEN_1,
-                        PWM_GEN_MODE_DOWN | PWM_GEN_MODE_NO_SYNC);
-        
-     //
+                        PWM_GEN_MODE_UP_DOWN | PWM_GEN_MODE_DB_NO_SYNC);
+    
+    //
     // Set the PWM period to 30kHz.  To calculate the appropriate parameter
     // use the following equation: N = (1 / f) * PWMClk.  Where N is the
     // function parameter, f is the desired frequency, and PWMClk is the
     // PWM clock frequency based on the system clock. So the N = 1000
     //
-    pwm0Counter = (ui32PWMClockRate / 30000);                           //this var is the N for equation
+    pwm0Counter = (ui32PWMClockRate/30000);                           //this var is the N for equation (antes era 30000)
     PWMGenPeriodSet(PWM0_BASE, PWM_GEN_1, pwm0Counter);                 
     
-    PWMPulseWidthSet(PWM0_BASE, PWM_OUT_2, 250);                        //25% pulse width
+    PWMPulseWidthSet(PWM0_BASE, PWM_OUT_2, 10);                        //Intial pulse width
+    PWMPulseWidthSet(PWM0_BASE, PWM_OUT_3, 10);                        //Intial pulse width
+
     
+    PWMGenEnable(PWM0_BASE, PWM_GEN_1);             //Enable the PWM generator block
     PWMOutputState(PWM0_BASE, PWM_OUT_2_BIT, true); //Enable the PWM Out for PF2 (output signal)
-    PWMGenEnable(PWM0_BASE, PWM_GEN_1);            //Enable the PWM generator block
+    PWMOutputState(PWM0_BASE, PWM_OUT_3_BIT, true); //Enable the PWM Out for PF3 (output signal)
 
+}
 
-    //AVISO: funcção para usar para modificar o pwm quando pegar o valor do conversor
-    //PWMPulseWidthSet(PWM0_BASE, PWM_OUT_2, g_ui32PWMIncrement);
+void UARTInit() {
+    //
+    //Peripheral section
+    //
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
+    while(!SysCtlPeripheralReady(SYSCTL_PERIPH_UART0))
+    {
+    }
+    while(!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOA))
+    {
+    }
+    
+    //
+    //GPIO Section
+    //
+    
+    //Set the alternative functions for gpio pins, for the uart communication
+    GPIOPinConfigure(GPIO_PA1_U0TX);
+    GPIOPinConfigure(GPIO_PA0_U0RX);
+    GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);
+    
+    /*Configuracao para (8N1):
+            8 bits de dados	(UART_CONFIG_WLEN_8)
+            1 stop bit (UART_CONFIG_STOP_ONE )
+            sem bit de paridade (UART_CONFIG_PAR_NONE)
+            
+    */
+    
+    UARTConfigSetExpClk(UART0_BASE, ui32SysClock, 115200,
+                       (UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_ONE |
+                       UART_CONFIG_PAR_NONE));
+                        
+    UARTEnable(UART0_BASE);
 }
 
 void systemInit() {
@@ -210,6 +258,7 @@ void systemInit() {
     ADCAndTimerInit();
     LEDAndPWMInit();
     interruptInit();
+    UARTInit();
 }
   /*------------------------------------------------------------------------------
  *
@@ -217,10 +266,13 @@ void systemInit() {
  *
  *------------------------------------------------------------------------------*/
 void 
-Adc0IntHandler(void) {
-    ADCIntClear(ADC0_BASE, 3);
-    adc0IntHandlerCalled = 1;
-    ADCSequenceDataGet(ADC0_BASE, 3, &ui32VerticalValue);
+Adc0SS2IntHandler(void) {
+    ADCIntClear(ADC0_BASE, 2);
+    adc0SS2IntHandlerCalled = 1;
+    ADCSequenceDataGet(ADC0_BASE, 2, vectorJoystick);
+    ui32VerticalValue = vectorJoystick[0];
+    ui32HorizontalValue = vectorJoystick[1];
+    ui32JoystickButtonValue = GPIOPinRead(GPIO_PORTC_BASE,GPIO_PIN_6);
 }
 
 void
@@ -239,13 +291,22 @@ Timer0IntHandler(void) {
 int main(int argc, char ** argv)
 {   
     systemInit();
+    UARTCharPutNonBlocking(UART0_BASE, 'c');
+    UARTDisable(UART0_BASE);
     while(1){
-      if(adc0IntHandlerCalled == 1){
-          adc0IntHandlerCalled = 0;
+      if(adc0SS2IntHandlerCalled == 1){
+          adc0SS2IntHandlerCalled = 0;
           uint32_t newPulseWidthRED = convertADOutputToPwmPulseWidth(ui32VerticalValue, pwm0Counter);
           PWMPulseWidthSet(PWM0_BASE, PWM_OUT_2, newPulseWidthRED); //modify pulse width for analogic vertical position
-          printf("Y axis: %d \n", ui32VerticalValue);
           
+          uint32_t newPulseWidthGreen = convertADOutputToPwmPulseWidth(ui32HorizontalValue, pwm0Counter);
+          PWMPulseWidthSet(PWM0_BASE, PWM_OUT_3, newPulseWidthGreen); //modify pulse width for analogic vertical position
+                    
+          if(ui32JoystickButtonValue == 64) { //value when the button ins't pressed
+              GPIOPinWrite(GPIO_PORTG_BASE, GPIO_PIN_0, 0); //modify the blue pin of rgb led with the value of joystick button
+          } else if (ui32JoystickButtonValue == 0) {                    //value when the button is pressed
+              GPIOPinWrite(GPIO_PORTG_BASE, GPIO_PIN_0, GPIO_PIN_0);    //modify the blue pin of rgb led with the value of joystick button
+          }        
       }
     }
 }

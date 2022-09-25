@@ -49,7 +49,7 @@ static void IntDefaultHandler(void);
 // External declarations for the interrupt handlers used by the application.
 //
 //*****************************************************************************
-extern void Adc0IntHandler(void);
+extern void Adc0SS2IntHandler(void);
 extern void Timer0IntHandler(void);
 
 //*****************************************************************************
@@ -121,8 +121,8 @@ __root const uVectorEntry __vector_table[] @ ".intvec" =
     IntDefaultHandler,                      // Quadrature Encoder 0
     IntDefaultHandler,                      // ADC Sequence 0
     IntDefaultHandler,                      // ADC Sequence 1
-    IntDefaultHandler,                      // ADC Sequence 2
-    Adc0IntHandler,                             // ADC Sequence 3
+    Adc0SS2IntHandler,                      // ADC Sequence 2
+    IntDefaultHandler,                      // ADC Sequence 3
     IntDefaultHandler,                      // Watchdog timer
     Timer0IntHandler,                      // Timer 0 subtimer A
     IntDefaultHandler,                      // Timer 0 subtimer B
