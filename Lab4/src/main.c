@@ -40,6 +40,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "driverlib/adc.h"
 #include "driverlib/gpio.h"
@@ -260,6 +261,83 @@ void systemInit() {
     interruptInit();
     UARTInit();
 }
+
+
+void sendCharUART(char c){
+    UARTCharPut(UART0_BASE, c);
+}
+
+char* convertNumberToCharVector(int num){
+    //Calculando separadamente os digitos da unidade, dezena, centena e milhar (como o valor maximo é até 3730, então temos até o milhar somente) e ajustando para o respectivo valor na tabela ASCII.
+    char unidade = num%10 + 48;
+    char dezena  = (num/10)%10 + 48;
+    char centena = (num/100)%10 + 48;
+    char milhar  = (num/1000)%10 + 48;
+    
+    char *num_vetor = malloc (sizeof (char) * 4);
+    num_vetor[3] = milhar;
+    num_vetor[2] = centena;
+    num_vetor[1] = dezena;
+    num_vetor[0] = unidade;
+    
+    return num_vetor;
+}
+
+void informDataUART(){
+    //inform horizontal joystick data.
+    //print "joy (h)="
+    sendCharUART('j');
+    sendCharUART('o');
+    sendCharUART('y');
+    sendCharUART(' ');
+    sendCharUART('(');
+    sendCharUART('h');
+    sendCharUART(')');
+    sendCharUART('=');
+    char* num_vetor = convertNumberToCharVector(ui32HorizontalValue);
+    sendCharUART(num_vetor[3]); //milhar
+    sendCharUART(num_vetor[2]); //centena
+    sendCharUART(num_vetor[1]); //dezena
+    sendCharUART(num_vetor[0]); //unidade
+    //sendCharUART('\n');   
+    
+    //inform vertical joystick data.
+    //print "joy (v)="
+    sendCharUART('j');
+    sendCharUART('o');
+    sendCharUART('y');
+    sendCharUART(' ');
+    sendCharUART('(');
+    sendCharUART('v');
+    sendCharUART(')');
+    sendCharUART('=');
+    num_vetor = convertNumberToCharVector(ui32VerticalValue);
+    sendCharUART(num_vetor[3]); //milhar
+    sendCharUART(num_vetor[2]); //centena
+    sendCharUART(num_vetor[1]); //dezena
+    sendCharUART(num_vetor[0]); //unidade
+    sendCharUART(' ');
+    
+    //inform joystick button status.
+    //print "joy (b)="  p->pressed | n-> not pressed
+    sendCharUART('j');
+    sendCharUART('o');
+    sendCharUART('y');
+    sendCharUART(' ');
+    sendCharUART('(');
+    sendCharUART('b');
+    sendCharUART(')');
+    sendCharUART('=');
+    
+    
+    if(ui32JoystickButtonValue == 64) { //value when the button ins't pressed
+        sendCharUART('n');
+    } else if (ui32JoystickButtonValue == 0) {                    //value when the button is pressed
+        sendCharUART('p');
+    }
+    sendCharUART('\r');    
+    sendCharUART('\n');
+}
   /*------------------------------------------------------------------------------
  *
  *      Handler Functions and Methods
@@ -291,8 +369,6 @@ Timer0IntHandler(void) {
 int main(int argc, char ** argv)
 {   
     systemInit();
-    UARTCharPutNonBlocking(UART0_BASE, 'c');
-    UARTDisable(UART0_BASE);
     while(1){
       if(adc0SS2IntHandlerCalled == 1){
           adc0SS2IntHandlerCalled = 0;
@@ -306,7 +382,9 @@ int main(int argc, char ** argv)
               GPIOPinWrite(GPIO_PORTG_BASE, GPIO_PIN_0, 0); //modify the blue pin of rgb led with the value of joystick button
           } else if (ui32JoystickButtonValue == 0) {                    //value when the button is pressed
               GPIOPinWrite(GPIO_PORTG_BASE, GPIO_PIN_0, GPIO_PIN_0);    //modify the blue pin of rgb led with the value of joystick button
-          }        
+          }
+          
+          informDataUART();
       }
     }
 }
