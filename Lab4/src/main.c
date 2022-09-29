@@ -114,7 +114,7 @@ void ADCAndTimerInit(){
     
     //TIMER section
     TimerConfigure(TIMER0_BASE, TIMER_CFG_PERIODIC);
-    uint32_t counter = 1200000000/5;                                                    //Counter until 200ms
+    uint32_t counter = 1200000000/20;                                                    //Counter until 200ms
     TimerLoadSet(TIMER0_BASE, TIMER_A, counter);
     TimerControlTrigger(TIMER0_BASE, TIMER_A, true);                                    //Configura o timer como trigger
     
